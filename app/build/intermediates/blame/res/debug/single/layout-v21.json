@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout-v21/notification_template_icon_group.xml"
+    }
+]

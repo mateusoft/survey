@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher.png",
+        "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi/ic_launcher_round.png",
+        "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    }
+]

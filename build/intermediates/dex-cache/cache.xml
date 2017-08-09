@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/7659d21c407b88837a2da1f778182470ff9ed445/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3bd3285839ad5d8d12ebea1058031db42acd3cb7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/26.0.0-alpha1/support-annotations-26.0.0-alpha1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-26.0.0-alpha1_e36fb9a986a7d54a3193fd29ff8e8f3828bb17cb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/7c2d95c4aecccad845d58097de12091e776d11e2/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a7187010035234583ace52bed9f9369ca61d2ce0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="e55a76ef8e3863f3976b20246dfdaa8226d1d217">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_5c4b95fe6ca4130721eb8f08fa37610c678fad13/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/6b8eef4238a421a7651c00bfb72f68936ef798b8/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2a5f6ce307fa3911b36d9dd50d8990fdad5056f5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/cb374a8315fcf8e9cc41127852c7d62fc2aa6193/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_658bbed630c6c00e7bac4c712794e793f4aeb6c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/dee5ac33ee972ae1e2eed148dd4f5c9ed484bc87/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aecc54740b3e5b2f46db6ef7d9602a0a8cf44743/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_7298cbc6efc9ebd5e129e7a7270facc6ca409014/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/607128a9a61f14a2546e64b987d9fce51bc8578f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_419d055e6d76a7b34fa4a8c6a41008452e219894/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/30722f07d370666c0943e6fae6b595df38af7357/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_97cfe7253e47d017bc6206f006ac34f359c6693c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b8d4076d3789352bf542de704d82273fe6ff1b1c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/24c002a1b95d34962fd7eb8bc12cb4a3f9731685/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_eb6b8b8a9f2daea92f97bc4b63f25fe746235b75/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/constraint-layout-solver-1.0.2_be0c37372de13775e82b7d9542b88b3d806ed0f7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/48be6f233ade21641a3c44bfd8bbee4c1057769e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d86d486c4cfce7397b4c3fb4db6a2d46e403763a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/d5d7147fcd2f200a502161719e42a31f7d2110fb/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_914da103f05c16c312b3fe29694ac26075dabd5c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8acd0205d7d736879376285b40bf320e44cd77fd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/mateusz/.android/build-cache/61d68f0a07d211ca5ff519b5343f09ead3f1115e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_49807f03912770d58310b0511ad564a2d26848e0/classes.dex" />
+    </item>
+
+</items>

@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_hint_foreground_material_light.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_hint_foreground_material_light.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_dark.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_primary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/design_error.xml",
+        "source": "/home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/res/color/design_error.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_search_url_text.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_search_url_text.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_light.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/switch_thumb_material_dark.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/switch_thumb_material_dark.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_primary_text_disable_only_material_dark.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_primary_text_disable_only_material_dark.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_dark.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_secondary_text_material_light.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_secondary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/switch_thumb_material_light.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/switch_thumb_material_light.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_primary_text_material_light.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_primary_text_material_light.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/color/abc_hint_foreground_material_dark.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/color/abc_hint_foreground_material_dark.xml"
+    }
+]

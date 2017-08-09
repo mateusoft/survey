@@ -1,0 +1,99 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:2:1-24:12
+	package
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:3:5-30
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+application
+ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:5:5-22:19
+MERGED from [com.android.support:design:26.0.0-alpha1] /home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /home/mateusz/.android/build-cache/d5d7147fcd2f200a502161719e42a31f7d2110fb/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /home/mateusz/.android/build-cache/24c002a1b95d34962fd7eb8bc12cb4a3f9731685/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:26.0.0-alpha1] /home/mateusz/.android/build-cache/30722f07d370666c0943e6fae6b595df38af7357/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /home/mateusz/.android/build-cache/cb374a8315fcf8e9cc41127852c7d62fc2aa6193/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /home/mateusz/.android/build-cache/61d68f0a07d211ca5ff519b5343f09ead3f1115e/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /home/mateusz/.android/build-cache/48be6f233ade21641a3c44bfd8bbee4c1057769e/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /home/mateusz/.android/build-cache/dee5ac33ee972ae1e2eed148dd4f5c9ed484bc87/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /home/mateusz/.android/build-cache/7c2d95c4aecccad845d58097de12091e776d11e2/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /home/mateusz/.android/build-cache/6b8eef4238a421a7651c00bfb72f68936ef798b8/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/mateusz/.android/build-cache/607128a9a61f14a2546e64b987d9fce51bc8578f/output/AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:8:9-41
+	android:supportsRtl
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:10:9-35
+	android:roundIcon
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:9:9-54
+	android:allowBackup
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:7:9-43
+	android:theme
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:11:9-40
+activity#com.izoo.survey.MainActivity
+ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:12:9-21:20
+	android:label
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:14:13-45
+	android:theme
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:15:13-56
+	android:name
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:13:13-41
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:16:13-20:29
+action#android.intent.action.MAIN
+ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:17:17-69
+	android:name
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:17:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:19:17-77
+	android:name
+		ADDED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml:19:27-74
+uses-sdk
+INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:design:26.0.0-alpha1] /home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /home/mateusz/.android/build-cache/d5d7147fcd2f200a502161719e42a31f7d2110fb/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /home/mateusz/.android/build-cache/24c002a1b95d34962fd7eb8bc12cb4a3f9731685/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /home/mateusz/.android/build-cache/7659d21c407b88837a2da1f778182470ff9ed445/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:26.0.0-alpha1] /home/mateusz/.android/build-cache/30722f07d370666c0943e6fae6b595df38af7357/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /home/mateusz/.android/build-cache/cb374a8315fcf8e9cc41127852c7d62fc2aa6193/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /home/mateusz/.android/build-cache/61d68f0a07d211ca5ff519b5343f09ead3f1115e/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /home/mateusz/.android/build-cache/48be6f233ade21641a3c44bfd8bbee4c1057769e/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /home/mateusz/.android/build-cache/dee5ac33ee972ae1e2eed148dd4f5c9ed484bc87/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /home/mateusz/.android/build-cache/7c2d95c4aecccad845d58097de12091e776d11e2/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /home/mateusz/.android/build-cache/6b8eef4238a421a7651c00bfb72f68936ef798b8/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/mateusz/.android/build-cache/607128a9a61f14a2546e64b987d9fce51bc8578f/output/AndroidManifest.xml:5:5-7:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:26.0.0-alpha1] /home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+		INJECTED from /home/mateusz/AndroidStudioProjects/survey/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:26.0.0-alpha1] /home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /home/mateusz/.android/build-cache/d5d7147fcd2f200a502161719e42a31f7d2110fb/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /home/mateusz/.android/build-cache/24c002a1b95d34962fd7eb8bc12cb4a3f9731685/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /home/mateusz/.android/build-cache/7659d21c407b88837a2da1f778182470ff9ed445/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:transition:26.0.0-alpha1] /home/mateusz/.android/build-cache/30722f07d370666c0943e6fae6b595df38af7357/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /home/mateusz/.android/build-cache/cb374a8315fcf8e9cc41127852c7d62fc2aa6193/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /home/mateusz/.android/build-cache/61d68f0a07d211ca5ff519b5343f09ead3f1115e/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /home/mateusz/.android/build-cache/48be6f233ade21641a3c44bfd8bbee4c1057769e/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /home/mateusz/.android/build-cache/dee5ac33ee972ae1e2eed148dd4f5c9ed484bc87/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /home/mateusz/.android/build-cache/7c2d95c4aecccad845d58097de12091e776d11e2/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /home/mateusz/.android/build-cache/6b8eef4238a421a7651c00bfb72f68936ef798b8/output/AndroidManifest.xml:25:5-27:41
+	android:value
+		ADDED from [com.android.support:design:26.0.0-alpha1] /home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/AndroidManifest.xml:27:9-38
+	android:name
+		ADDED from [com.android.support:design:26.0.0-alpha1] /home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/AndroidManifest.xml:26:9-47
