@@ -247,5 +247,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(TABLE_Results, null, values);
         db.close(); // Closing database connection
     }
-    
+
 }
