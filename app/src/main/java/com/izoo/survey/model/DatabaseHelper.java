@@ -89,7 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Type_Users table create statement
     private static final String CREATE_TABLE_Type_Users = "CREATE TABLE "
             + TABLE_Type_Users + "(" + KEY_ID_Type_Users + " INTEGER PRIMARY KEY," + KEY_Name_Type_User
-            + " VARCHAR(45)," + ")";
+            + " VARCHAR(45)" + ")";
 
     // Users table create statement
     private static final String CREATE_TABLE_Users = "CREATE TABLE "
@@ -100,65 +100,65 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Survey table create statement
     private static final String CREATE_TABLE_Survey = "CREATE TABLE "
             + TABLE_Survey + "(" + KEY_ID_Survey + " INTEGER PRIMARY KEY," + KEY_Name
-            + " VARCHAR(45)," + KEY_Date_Create + " DATETIME," + KEY_Date_Update + " DATETIME," + ")";
+            + " VARCHAR(45)," + KEY_Date_Create + " DATETIME," + KEY_Date_Update + " DATETIME" + ")";
 
     // Section table create statement
     private static final String CREATE_TABLE_Section = "CREATE TABLE "
             + TABLE_Section + "(" + KEY_ID_Section + " INTEGER PRIMARY KEY," + KEY_Name
-            + " VARCHAR(45)," + KEY_Sequence + " INTEGER," + ")";
+            + " VARCHAR(45)," + KEY_Sequence + " INTEGER" + ")";
 
     // Type_Answers table create statement
     private static final String CREATE_TABLE_Type_Answers = "CREATE TABLE "
             + TABLE_Type_Answers + "(" + KEY_ID_Type_Answers + " INTEGER PRIMARY KEY," + KEY_Name
-            + " VARCHAR(45)," + ")";
+            + " VARCHAR(45)" + ")";
 
     // Question table create statement
     private static final String CREATE_TABLE_Question = "CREATE TABLE "
             + TABLE_Question + "(" + KEY_ID_Question + " INTEGER PRIMARY KEY," + KEY_Text_Answers
             + " VARCHAR(45)," + KEY_Required + " BOOLEAN," + KEY_Sequence + " INTEGER," + KEY_Tips
-            + " VARCHAR(45)," + KEY_ID_Section + " INTEGER," + KEY_ID_Type_Answers + " INTEGER," + ")";
+            + " VARCHAR(45)," + KEY_ID_Section + " INTEGER," + KEY_ID_Type_Answers + " INTEGER" + ")";
 
     // Answers_To_Question table create statement
     private static final String CREATE_TABLE_Answers_To_Question = "CREATE TABLE "
             + TABLE_Answers_To_Question + "(" + KEY_ID_Answers_To_Question + " INTEGER PRIMARY KEY,"
             + KEY_Text_Answers + " VARCHAR(45)," + KEY_Sequence + " INTEGER," +  KEY_Has_Text
-            + " BOOLEAN," + KEY_ID_Question + " INTEGER," + ")";
+            + " BOOLEAN," + KEY_ID_Question + " INTEGER" + ")";
 
     // Answers table create statement
     private static final String CREATE_TABLE_Answers = "CREATE TABLE "
             + TABLE_Answers + "(" + KEY_ID_Answers + " INTEGER PRIMARY KEY," + KEY_Text_Answers
-            + " VARCHAR(45)," + KEY_ID_Answers_To_Question + " INTEGER," + ")";
+            + " VARCHAR(45)," + KEY_ID_Answers_To_Question + " INTEGER" + ")";
 
     // Survey_Users table create statement
     private static final String CREATE_TABLE_Survey_Users = "CREATE TABLE Survey_Users "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Survey
-            + " INTEGER," + KEY_ID_User + " INTEGER," + ")";
+            + " INTEGER," + KEY_ID_User + " INTEGER" + ")";
 
     // Survey_Anonymous table create statement
     private static final String CREATE_TABLE_Survey_Anonymous = "CREATE TABLE Survey_Anonymous "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Survey
-            + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME," + ")";
+            + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME" + ")";
 
     // Section_In_Survey table create statement
     private static final String CREATE_TABLE_Section_In_Survey = "CREATE TABLE Section_In_Survey "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Section
-            + " INTEGER," + KEY_ID_Survey + " INTEGER," + ")";
+            + " INTEGER," + KEY_ID_Survey + " INTEGER" + ")";
 
     // Question_In_Section table create statement
     private static final String CREATE_TABLE_Question_In_Section = "CREATE TABLE Question_In_Section "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Question
-            + " INTEGER," + KEY_ID_Section + " INTEGER," + ")";
+            + " INTEGER," + KEY_ID_Section + " INTEGER" + ")";
 
     // History table create statement
     private static final String CREATE_TABLE_History = "CREATE TABLE History "
             + "(" + KEY_ID_History + " INTEGER PRIMARY KEY," + KEY_Date_Hour
             + " DATETIME," + KEY_ID_User + " INTEGER," + KEY_ID_Survey + " INTEGER,"
-            + KEY_Order_Number + " INTEGER," + ")";
+            + KEY_Order_Number + " INTEGER" + ")";
 
     // Results table create statement
     private static final String CREATE_TABLE_Results = "CREATE TABLE "+ TABLE_Results
             + "(" + KEY_ID_Results + " INTEGER PRIMARY KEY," + KEY_Text_Answers + " VARCHAR(45),"
-            + KEY_ID_Question + " INTEGER," + KEY_Order_Number + " INTEGER," + ")";
+            + KEY_ID_Question + " INTEGER," + KEY_Order_Number + " INTEGER" + ")";
 
 
     public DatabaseHelper(Context context) {
@@ -208,7 +208,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
     // Adding new History
-    void addHistory(History h) {
+    public void addHistory(History h) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -223,7 +223,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Adding new Answers
-    void addAnswers(Answers answers) {
+    public void addAnswers(Answers answers) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -235,7 +235,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
     // Adding new Results
-    void addResults(Results results) {
+    public void addResults(Results results) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

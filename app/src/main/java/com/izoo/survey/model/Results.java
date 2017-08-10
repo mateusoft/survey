@@ -13,8 +13,7 @@ public class Results {
     public Results() {
     }
 
-    public Results(int ID_Results, String text_Answers, int ID_Question, int order_Number) {
-        this.ID_Results = ID_Results;
+    public Results( String text_Answers, int ID_Question, int order_Number) {
         Text_Answers = text_Answers;
         this.ID_Question = ID_Question;
         Order_Number = order_Number;

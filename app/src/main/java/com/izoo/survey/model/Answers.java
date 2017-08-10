@@ -12,8 +12,7 @@ public class Answers {
     public Answers() {
     }
 
-    public Answers(int ID_Answers, String text_Answers, int ID_Answers_To_Question) {
-        this.ID_Answers = ID_Answers;
+    public Answers( String text_Answers, int ID_Answers_To_Question) {
         Text_Answers = text_Answers;
         this.ID_Answers_To_Question = ID_Answers_To_Question;
     }
