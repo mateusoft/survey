@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-
+    private CreateDataBase cdb=new CreateDataBase();
     // Logcat tag
     private static final String LOG = "DatabaseHelper";
 
@@ -100,8 +100,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_Users = "CREATE TABLE "
             + TABLE_Users + "(" + KEY_ID_User + " INTEGER PRIMARY KEY," + KEY_Login
             + " VARCHAR(45)," + KEY_Password + " VARCHAR(45)," + KEY_ID_Type_Users
-            + " INTEGER" + "FOREIGN KEY "+ "("+ KEY_ID_Type_Users+")"+ " REFERENCES "+
-            TABLE_Type_Users + "(" + KEY_ID_Type_Users+")" + ")";
+            + " INTEGER, " +
+            " FOREIGN KEY "+ "("+ KEY_ID_Type_Users+")"+ " REFERENCES "+
+            TABLE_Type_Users + "(" + KEY_ID_Type_Users+")" +
+            ")";
 
     // Survey table create statement
     private static final String CREATE_TABLE_Survey = "CREATE TABLE "
@@ -120,68 +122,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Question table create statement
     private static final String CREATE_TABLE_Question = "CREATE TABLE "
-            + TABLE_Question + "(" + KEY_ID_Question + " INTEGER PRIMARY KEY," + KEY_Text_Answers
-            + " VARCHAR(45)," + KEY_Required + " BOOLEAN," + KEY_Sequence + " INTEGER," + KEY_Tips
-            + " VARCHAR(45)," + KEY_ID_Section + " INTEGER," + KEY_ID_Type_Answers + " INTEGER" +
+            + TABLE_Question + "(" + KEY_ID_Question + " INTEGER PRIMARY KEY, " + KEY_Text_Answers
+            + " VARCHAR(45), " + KEY_Required + " BOOLEAN, " + KEY_Sequence + " INTEGER, " + KEY_Tips
+            + " VARCHAR(45), " + KEY_ID_Section + " INTEGER, " + KEY_ID_Type_Answers + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_Type_Answers + ")" + " REFERENCES " + TABLE_Type_Answers +
-            "(" + KEY_ID_Type_Answers + ")" +")";
+            "(" + KEY_ID_Type_Answers + ")" +
+            ")";
 
     // Answers_To_Question table create statement
     private static final String CREATE_TABLE_Answers_To_Question = "CREATE TABLE "
             + TABLE_Answers_To_Question + "(" + KEY_ID_Answers_To_Question + " INTEGER PRIMARY KEY,"
-            + KEY_Text_Answers + " VARCHAR(45)," + KEY_Sequence + " INTEGER," +  KEY_Has_Text
-            + " BOOLEAN," + KEY_ID_Question + " INTEGER" + " FOREIGN KEY " + "(" + KEY_ID_Question + ")" +
-            " REFERENCES " + TABLE_Question + "(" + KEY_ID_Question + ")" +")";
+            + KEY_Text_Answers + " VARCHAR(45), " + KEY_Sequence + " INTEGER, " +  KEY_Has_Text
+            + " BOOLEAN, " + KEY_ID_Question + " INTEGER, " +
+            " FOREIGN KEY " + "(" + KEY_ID_Question + ")" +
+            " REFERENCES " + TABLE_Question + "(" + KEY_ID_Question + ")" +
+            ")";
 
     // Answers table create statement
     private static final String CREATE_TABLE_Answers = "CREATE TABLE "
             + TABLE_Answers + "(" + KEY_ID_Answers + " INTEGER PRIMARY KEY," + KEY_Text_Answers
-            + " VARCHAR(45)," + KEY_ID_Answers_To_Question + " INTEGER" +
+            + " VARCHAR(45)," + KEY_ID_Answers_To_Question + " INTEGER," +
             " FOREIGN KEY " + "(" + KEY_ID_Answers_To_Question+ ")" + " REFERENCES " +
-            TABLE_Answers_To_Question + "(" + KEY_ID_Answers_To_Question + ")" +")";
+            TABLE_Answers_To_Question + "(" + KEY_ID_Answers_To_Question + ")" +
+            ")";
 
     // Survey_Users table create statement
     private static final String CREATE_TABLE_Survey_Users = "CREATE TABLE Survey_Users "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Survey
-            + " INTEGER," + KEY_ID_User + " INTEGER" +
+            + " INTEGER," + KEY_ID_User + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey + "(" + KEY_ID_Survey + "),"+
-    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +")";
+    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +
+            ")";
 
     // Survey_Anonymous table create statement
     private static final String CREATE_TABLE_Survey_Anonymous = "CREATE TABLE Survey_Anonymous "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Survey
-            + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME" +
+            + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME, " +
             " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ "),"+
-    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +")";
+    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +
+            ")";
 
     // Section_In_Survey table create statement
     private static final String CREATE_TABLE_Section_In_Survey = "CREATE TABLE Section_In_Survey "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Section
-            + " INTEGER," + KEY_ID_Survey + " INTEGER" +
+            + " INTEGER," + KEY_ID_Survey + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_Section+ ")" + " REFERENCES " + TABLE_Section+ "(" + KEY_ID_Section+ "),"+
-    " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ ")" +")";
+    " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ ")" +
+        ")";
 
     // Question_In_Section table create statement
     private static final String CREATE_TABLE_Question_In_Section = "CREATE TABLE Question_In_Section "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Question
-            + " INTEGER," + KEY_ID_Section + " INTEGER" +
+            + " INTEGER," + KEY_ID_Section + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_Section+ ")" + " REFERENCES " + TABLE_Section+ "(" + KEY_ID_Section+ "),"+
-    " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")" +")";
+    " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")" +
+            ")";
 
     // History table create statement
     private static final String CREATE_TABLE_History = "CREATE TABLE History "
             + "(" + KEY_ID_History + " INTEGER PRIMARY KEY," + KEY_Date_Hour
             + " DATETIME," + KEY_ID_User + " INTEGER," + KEY_ID_Survey + " INTEGER,"
-            + KEY_Order_Number + " INTEGER" +
-            " FOREIGN KEY " + "(" + KEY_ID_Section+ ")" + " REFERENCES " + TABLE_Section+ "(" + KEY_ID_Section+ "),"+
-    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +")";
+            + KEY_Order_Number + " INTEGER, " +
+            " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey + "(" + KEY_ID_Survey+ "), "+
+    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +
+            ")";
 
     // Results table create statement
     private static final String CREATE_TABLE_Results = "CREATE TABLE "+ TABLE_Results
             + "(" + KEY_ID_Results + " INTEGER PRIMARY KEY," + KEY_Text_Answers + " VARCHAR(45),"
-            + KEY_ID_Question + " INTEGER," + KEY_Order_Number + " INTEGER" +
+            + KEY_ID_Question + " INTEGER," + KEY_Order_Number + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_Order_Number+ ")" + " REFERENCES " + TABLE_History+ "(" + KEY_Order_Number+ "),"+
-    " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")" +")";
+    " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")" +
+            ")";
 
 
     public DatabaseHelper(Context context) {
@@ -206,6 +218,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_Question_In_Section);
         db.execSQL(CREATE_TABLE_History);
         db.execSQL(CREATE_TABLE_Results);
+        db.execSQL(cdb.addTypeUser);
+        db.execSQL(cdb.addUser);
+        db.execSQL(cdb.addSurvey);
+        db.execSQL(cdb.addSection);
+        db.execSQL(cdb.addTypeAnswer);
+        db.execSQL(cdb.addQuestion);
+        db.execSQL(cdb.addAnswers);
+        db.execSQL(cdb.addQuestionInSection);
+        db.execSQL(cdb.addSurveyInSection);
+        db.execSQL(cdb.addSurveyUsers);
 
     }
 
