@@ -34,8 +34,9 @@ public class MainActivity extends AppCompatActivity
         try{
 //            Answers a=new Answers("Ala",1);
 //            databaseHelper.addAnswers(a);
-            Results r=new Results("Ola",1,1);
-            databaseHelper.addResults(r);
+//            Results r=new Results("Ola",1,1);
+//            databaseHelper.addResults(r);
+            databaseHelper.getAllToDosByTag(1);
         }finally {
             databaseHelper.close();
         }

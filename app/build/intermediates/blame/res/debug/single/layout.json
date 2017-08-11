@@ -28,20 +28,20 @@
         "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/abc_search_dropdown_item_icons_2line.xml"
     },
     {
-        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
-        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/abc_activity_chooser_view.xml"
-    },
-    {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/notification_template_lines_media.xml",
         "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/notification_template_lines_media.xml"
     },
     {
-        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
-        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/abc_alert_dialog_button_bar_material.xml"
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/abc_activity_chooser_view.xml"
     },
     {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
         "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_button_bar_material.xml",
+        "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/abc_alert_dialog_button_bar_material.xml"
     },
     {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
@@ -202,6 +202,10 @@
     {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/design_bottom_sheet_dialog.xml",
         "source": "/home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/res/layout/design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/fragment_survey.xml",
+        "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/layout/fragment_survey.xml"
     },
     {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/design_layout_snackbar_include.xml",

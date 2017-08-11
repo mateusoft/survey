@@ -2,8 +2,13 @@ package com.izoo.survey.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mateusz on 08.08.17.
@@ -89,13 +94,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Type_Users table create statement
     private static final String CREATE_TABLE_Type_Users = "CREATE TABLE "
             + TABLE_Type_Users + "(" + KEY_ID_Type_Users + " INTEGER PRIMARY KEY," + KEY_Name_Type_User
-            + " VARCHAR(45)" + ")";
+            + " VARCHAR(45) " + ")";
 
     // Users table create statement
     private static final String CREATE_TABLE_Users = "CREATE TABLE "
             + TABLE_Users + "(" + KEY_ID_User + " INTEGER PRIMARY KEY," + KEY_Login
             + " VARCHAR(45)," + KEY_Password + " VARCHAR(45)," + KEY_ID_Type_Users
-            + " INTEGER" + ")";
+            + " INTEGER" + "FOREIGN KEY "+ "("+ KEY_ID_Type_Users+")"+ " REFERENCES "+
+            TABLE_Type_Users + "(" + KEY_ID_Type_Users+")" + ")";
 
     // Survey table create statement
     private static final String CREATE_TABLE_Survey = "CREATE TABLE "
@@ -116,49 +122,66 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_Question = "CREATE TABLE "
             + TABLE_Question + "(" + KEY_ID_Question + " INTEGER PRIMARY KEY," + KEY_Text_Answers
             + " VARCHAR(45)," + KEY_Required + " BOOLEAN," + KEY_Sequence + " INTEGER," + KEY_Tips
-            + " VARCHAR(45)," + KEY_ID_Section + " INTEGER," + KEY_ID_Type_Answers + " INTEGER" + ")";
+            + " VARCHAR(45)," + KEY_ID_Section + " INTEGER," + KEY_ID_Type_Answers + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_ID_Type_Answers + ")" + " REFERENCES " + TABLE_Type_Answers +
+            "(" + KEY_ID_Type_Answers + ")" +")";
 
     // Answers_To_Question table create statement
     private static final String CREATE_TABLE_Answers_To_Question = "CREATE TABLE "
             + TABLE_Answers_To_Question + "(" + KEY_ID_Answers_To_Question + " INTEGER PRIMARY KEY,"
             + KEY_Text_Answers + " VARCHAR(45)," + KEY_Sequence + " INTEGER," +  KEY_Has_Text
-            + " BOOLEAN," + KEY_ID_Question + " INTEGER" + ")";
+            + " BOOLEAN," + KEY_ID_Question + " INTEGER" + " FOREIGN KEY " + "(" + KEY_ID_Question + ")" +
+            " REFERENCES " + TABLE_Question + "(" + KEY_ID_Question + ")" +")";
 
     // Answers table create statement
     private static final String CREATE_TABLE_Answers = "CREATE TABLE "
             + TABLE_Answers + "(" + KEY_ID_Answers + " INTEGER PRIMARY KEY," + KEY_Text_Answers
-            + " VARCHAR(45)," + KEY_ID_Answers_To_Question + " INTEGER" + ")";
+            + " VARCHAR(45)," + KEY_ID_Answers_To_Question + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_ID_Answers_To_Question+ ")" + " REFERENCES " +
+            TABLE_Answers_To_Question + "(" + KEY_ID_Answers_To_Question + ")" +")";
 
     // Survey_Users table create statement
     private static final String CREATE_TABLE_Survey_Users = "CREATE TABLE Survey_Users "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Survey
-            + " INTEGER," + KEY_ID_User + " INTEGER" + ")";
+            + " INTEGER," + KEY_ID_User + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey + "(" + KEY_ID_Survey + "),"+
+    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +")";
 
     // Survey_Anonymous table create statement
     private static final String CREATE_TABLE_Survey_Anonymous = "CREATE TABLE Survey_Anonymous "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Survey
-            + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME" + ")";
+            + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME" +
+            " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ "),"+
+    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +")";
 
     // Section_In_Survey table create statement
     private static final String CREATE_TABLE_Section_In_Survey = "CREATE TABLE Section_In_Survey "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Section
-            + " INTEGER," + KEY_ID_Survey + " INTEGER" + ")";
+            + " INTEGER," + KEY_ID_Survey + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_ID_Section+ ")" + " REFERENCES " + TABLE_Section+ "(" + KEY_ID_Section+ "),"+
+    " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ ")" +")";
 
     // Question_In_Section table create statement
     private static final String CREATE_TABLE_Question_In_Section = "CREATE TABLE Question_In_Section "
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_ID_Question
-            + " INTEGER," + KEY_ID_Section + " INTEGER" + ")";
+            + " INTEGER," + KEY_ID_Section + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_ID_Section+ ")" + " REFERENCES " + TABLE_Section+ "(" + KEY_ID_Section+ "),"+
+    " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")" +")";
 
     // History table create statement
     private static final String CREATE_TABLE_History = "CREATE TABLE History "
             + "(" + KEY_ID_History + " INTEGER PRIMARY KEY," + KEY_Date_Hour
             + " DATETIME," + KEY_ID_User + " INTEGER," + KEY_ID_Survey + " INTEGER,"
-            + KEY_Order_Number + " INTEGER" + ")";
+            + KEY_Order_Number + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_ID_Section+ ")" + " REFERENCES " + TABLE_Section+ "(" + KEY_ID_Section+ "),"+
+    " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" +")";
 
     // Results table create statement
     private static final String CREATE_TABLE_Results = "CREATE TABLE "+ TABLE_Results
             + "(" + KEY_ID_Results + " INTEGER PRIMARY KEY," + KEY_Text_Answers + " VARCHAR(45),"
-            + KEY_ID_Question + " INTEGER," + KEY_Order_Number + " INTEGER" + ")";
+            + KEY_ID_Question + " INTEGER," + KEY_Order_Number + " INTEGER" +
+            " FOREIGN KEY " + "(" + KEY_Order_Number+ ")" + " REFERENCES " + TABLE_History+ "(" + KEY_Order_Number+ "),"+
+    " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")" +")";
 
 
     public DatabaseHelper(Context context) {
@@ -246,6 +269,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_Results, null, values);
         db.close(); // Closing database connection
+    }
+
+    public List<Survey> getAllToDosByTag(int id) {
+        List<Survey> survey = new ArrayList<Survey>();
+
+        String selectQuery = "select * from "+
+                TABLE_Survey+ " where " + KEY_ID_Survey+"=="+id;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+//        if (c.moveToFirst()) {
+//            do {
+//                Survey s = new Survey();
+//                s.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+//                td.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
+//                td.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+//
+//                // adding to todo list
+//                todos.add(td);
+//            } while (c.moveToNext());
+//        }
+
+        return survey;
     }
 
 }
