@@ -4,6 +4,7 @@ package com.izoo.survey;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.izoo.survey.model.Answers_To_Question;
 import com.izoo.survey.model.DatabaseHelper;
 import com.izoo.survey.model.Question;
 import com.izoo.survey.model.Section;
@@ -40,7 +43,6 @@ public class SurveyFragment extends Fragment  {
     private Survey survey;
     private int sectionNumber;
     private int questionNumber;
-    private int allSectionsNumber;
     private int allQuestionsNumber;
     private int currentQuestionNumber;
     private View view;
@@ -60,7 +62,6 @@ public class SurveyFragment extends Fragment  {
         questionNumber = 0;
         currentQuestionNumber = 1;
         allQuestionsNumber = getAllQuestionsNumber();
-        allSectionsNumber = survey.getSections().size();
         init();
         return view;
     }
@@ -91,46 +92,110 @@ public class SurveyFragment extends Fragment  {
             tv.setTextSize(10);
             linearLayout.addView(tv);
         }
-        if(question.getType_Answers().equals("Single")){
+        Answers_To_Question answers_to_question;
+        EditText editText = new EditText(getActivity());
+        boolean isEditText = false;
+        if(question.getType_Question().equals("Single")){
             //add radio buttons
             int amount = question.getAvailableAnswers().size();
             final RadioButton[] rb = new RadioButton[amount];
-            RadioGroup rg = new RadioGroup(getActivity());
+            final RadioGroup rg = new RadioGroup(getActivity());
             rg.setOrientation(RadioGroup.VERTICAL);
             rg.setLayoutParams(layoutParams);
             for(int i = 0; i < amount; i++){
+                answers_to_question = question.getAvailableAnswers().get(i);
                 rb[i]  = new RadioButton(getActivity());
-                rb[i].setText(question.getAvailableAnswers().get(i).getText_Answers());
-                rb[i].setId(question.getAvailableAnswers().get(i).getId_Answers());
-                if(question.getProvidedAnswers() != null){
-                    if(question.getProvidedAnswers().contains((int)rb[i].getId())) rb[i].setChecked(true);
+                rb[i].setText(answers_to_question.getText_Answers());
+                rb[i].setId(answers_to_question.getId_Answers_To_Question());
+                Answers_To_Question a = question.getGivenAnswer(answers_to_question.getId_Answers_To_Question());
+                if(a != null){
+                    rb[i].setChecked(true);
+                    if(answers_to_question.getHas_Text() == 1){
+                        editText = newEditText(null,answers_to_question.getId_Answers_To_Question(),a.getText());
+                        isEditText = true;
+                    }
+                }else{
+                    if(answers_to_question.getHas_Text() == 1){
+                        editText = newEditText(null,answers_to_question.getId_Answers_To_Question(),null);
+                        isEditText = true;
+                    }
                 }
                 rg.addView(rb[i]);
             }
             linearLayout.addView(rg);
-        }else if (question.getType_Answers().equals("Multiple")){
+            if(isEditText){
+                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                        for(int j = 0; j < linearLayout.getChildCount(); j++) {
+                            View child = linearLayout.getChildAt(j);
+                            if (child instanceof EditText) {
+                                EditText et = (EditText) child;
+                                if(et.getId() == i) et.setEnabled(true);
+                                else et.setEnabled(false);
+                                break;
+                            }
+                        }
+                    }
+                });
+                linearLayout.addView(editText);
+            }
+        }else if (question.getType_Question().equals("Multiple")){
             //add checkboxes
             int amount = question.getAvailableAnswers().size();
             for(int i = 0; i < amount; i++) {
                 CheckBox cb = new CheckBox(getActivity());
-                cb.setText(question.getAvailableAnswers().get(i).getText_Answers());
-                cb.setId(question.getAvailableAnswers().get(i).getId_Answers());
-                if(question.getProvidedAnswers() != null){
-                    if(question.getProvidedAnswers().contains((int)cb.getId())) cb.setChecked(true);
+                answers_to_question = question.getAvailableAnswers().get(i);
+                cb.setText(answers_to_question.getText_Answers());
+                cb.setId(answers_to_question.getId_Answers_To_Question());
+                Answers_To_Question a = question.getGivenAnswer(answers_to_question.getId_Answers_To_Question());
+                if(a != null){
+                    cb.setChecked(true);
+                    if(answers_to_question.getHas_Text() == 1){
+                        editText = newEditText(null,answers_to_question.getId_Answers_To_Question(),a.getText());
+                        isEditText = true;
+                    }
+                }else{
+                    if(answers_to_question.getHas_Text() == 1){
+                        editText = newEditText(null,answers_to_question.getId_Answers_To_Question(),null);
+                        isEditText = true;
+                    }
                 }
                 linearLayout.addView(cb);
+                if(isEditText){
+                    cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            for(int j = 0; j < linearLayout.getChildCount(); j++) {
+                                View child = linearLayout.getChildAt(j);
+                                if (child instanceof EditText) {
+                                    EditText et = (EditText) child;
+                                    if(et.getId() == compoundButton.getId()){
+                                        et.setEnabled(compoundButton.isChecked());
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    linearLayout.addView(editText);
+                    isEditText = false;
+                }
             }
         }else{
-            // add edit text
-            EditText et = new EditText(getActivity());
-            et.setLayoutParams(layoutParams);
-            et.setMinLines(1);
-            et.setMaxLines(5);
-            et.setHint("Wpisz odpowiedź");
-            if(question.getOpenAnswer() != null){
-                et.setText(question.getOpenAnswer());
+            //add editText
+            answers_to_question = question.getAvailableAnswers().get(0);
+            tv = new TextView(getActivity());
+            tv.setText(answers_to_question.getText_Answers());
+            tv.setLayoutParams(layoutParams);
+            linearLayout.addView(tv);
+            Answers_To_Question a = question.getGivenAnswer(answers_to_question.getId_Answers_To_Question());
+            if(a != null){
+                editText = newEditText(layoutParams,answers_to_question.getId_Answers_To_Question(),a.getText());
+            }else{
+                editText = newEditText(layoutParams,answers_to_question.getId_Answers_To_Question(),"");
             }
-            linearLayout.addView(et);
+            linearLayout.addView(editText);
         }
         // add buttons
         Button back = new Button(getActivity());
@@ -195,7 +260,8 @@ public class SurveyFragment extends Fragment  {
 
     private boolean saveAnswer(LinearLayout parent){
         Question question = survey.getSections().get(sectionNumber).getQuestions().get(questionNumber);
-        if(question.getType_Answers().equals("Single")){
+        boolean isEmptyEditText = false;
+        if(question.getType_Question().equals("Single")){
             for(int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
                 if (child instanceof RadioGroup) {
@@ -204,21 +270,34 @@ public class SurveyFragment extends Fragment  {
                     int id = radio.getCheckedRadioButtonId();
                     if(id == -1 && question.isRequired() == 1) return false;
                     else if(id == -1 && question.isRequired() == 0){
-                        question.setProvidedAnswers(null);
+                        question.setGivenAnswers(null);
                         return true;
                     }
                     else{
-                        List<Integer> list = new ArrayList<>();
-                        list.add(id);
-                        question.setProvidedAnswers(list);
-                        survey.getSections().get(sectionNumber).getQuestions().set(questionNumber,question);
+                        List <Answers_To_Question> list = new ArrayList<>();
+                        Answers_To_Question answers_to_question = new Answers_To_Question(question.getAnswer(id));
+                        if(answers_to_question.getHas_Text() == 1){
+                            for(int j = 0; j < parent.getChildCount(); j++) {
+                                child = parent.getChildAt(j);
+                                if (child instanceof EditText) {
+                                    EditText et = (EditText) child;
+                                    if(et.getId() == answers_to_question.getId_Answers_To_Question()){
+                                        if(et.getText().toString() == null || et.getText().toString().equals("")) isEmptyEditText = true;
+                                        answers_to_question.setText(et.getText().toString());
+                                    }
+                                }
+                            }
+                        }
+                        list.add(answers_to_question);
+                        question.setGivenAnswers(list);
+                        if(isEmptyEditText) return false;
                         return true;
                     }
                 }
             }
-        }else if (question.getType_Answers().equals("Multiple")){
+        }else if (question.getType_Question().equals("Multiple")){
             boolean checked = false;
-            List<Integer> list = new ArrayList<>();
+            List<Answers_To_Question> list = new ArrayList<>();
             for(int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
                 if (child instanceof CheckBox) {
@@ -226,36 +305,55 @@ public class SurveyFragment extends Fragment  {
                     CheckBox cb = (CheckBox) child;
                     if(cb.isChecked()){
                         checked = true;
-                        list.add(cb.getId());
+                        Answers_To_Question answers_to_question = new Answers_To_Question(question.getAnswer(cb.getId()));
+                        if(answers_to_question.getHas_Text() == 1){
+                            for(int j = 0; j < parent.getChildCount(); j++) {
+                                child = parent.getChildAt(j);
+                                if (child instanceof EditText) {
+                                    EditText et = (EditText) child;
+                                    if(et.getId() == answers_to_question.getId_Answers_To_Question()){
+                                        if(et.getText().toString() == null || et.getText().toString().equals("")) isEmptyEditText = true;
+                                        answers_to_question.setText(et.getText().toString());
+                                    }
+                                }
+                            }
+                        }
+                        list.add(answers_to_question);
                     }
                 }
             }
+            if(isEmptyEditText){
+                question.setGivenAnswers(list);
+                return false;
+            }
             if(!checked && question.isRequired() == 1){
-                question.setProvidedAnswers(null);
+                question.setGivenAnswers(null);
                 return false;
             }
             else if(!checked && question.isRequired() == 0){
-                question.setProvidedAnswers(null);
+                question.setGivenAnswers(null);
                 return true;
             }
             else{
-                question.setProvidedAnswers(list);
-                survey.getSections().get(sectionNumber).getQuestions().set(questionNumber,question);
+                question.setGivenAnswers(list);
                 return true;
             }
         } else{
             for(int i = 0; i < parent.getChildCount(); i++) {
                 View child = parent.getChildAt(i);
+                List<Answers_To_Question> list = new ArrayList<>();
                 if (child instanceof EditText) {
                     //Support for EditText
                     EditText et = (EditText) child;
                     if(et.getText().toString() == null || et.getText().toString().equals("")){
-                        question.setOpenAnswer(null);
                         if(question.isRequired() == 1) return false;
-                        else question.setOpenAnswer(null);
+                        else question.setGivenAnswers(null);
+                    }else{
+                        Answers_To_Question answers_to_question = new Answers_To_Question(question.getAnswer(et.getId()));
+                        answers_to_question.setText(et.getText().toString());
+                        list.add(answers_to_question);
+                        question.setGivenAnswers(list);
                     }
-                    question.setOpenAnswer(et.getText().toString());
-                    survey.getSections().get(sectionNumber).getQuestions().set(questionNumber, question);
                     return true;
                 }
             }
@@ -304,5 +402,17 @@ public class SurveyFragment extends Fragment  {
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction().replace(R.id.content_frame,new SurveyListFragment(),"visible_fragment")
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+    }
+
+    private EditText newEditText(LayoutParams layoutParams,int id, String text){
+        EditText et = new EditText(getActivity());
+        if(layoutParams != null) et.setLayoutParams(layoutParams);
+        et.setMinLines(1);
+        et.setMaxLines(5);
+        et.setId(id);
+        et.setHint("Wpisz odpowiedź");
+        if(text != null) et.setText(text);
+        else et.setEnabled(false);
+        return et;
     }
 }
