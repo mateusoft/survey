@@ -1,6 +1,7 @@
 package com.izoo.survey;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +24,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.izoo.survey.model.DatabaseHelper;
+import com.izoo.survey.model.Survey;
 import com.izoo.survey.model.Users;
 
 public class MainActivity extends AppCompatActivity
@@ -115,7 +118,26 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager fragMan = getSupportFragmentManager();
+            Fragment fragment = fragMan.findFragmentByTag("visible_fragment");
+            if (fragMan.getBackStackEntryCount() == 0) super.onBackPressed();
+            else {
+                if (fragment instanceof SurveyFragment){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setMessage("Jesteś pewien, że chcesz wyjść? Wszystkie zmiany zostaną utracone.");
+                    alertDialogBuilder.setPositiveButton("Tak",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    setSurveyListFragment();
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("Nie", null);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+                else super.onBackPressed();
+            }
         }
     }
 
@@ -178,7 +200,7 @@ public class MainActivity extends AppCompatActivity
             TextView error = (TextView) findViewById(R.id.error_message);
             error.setText("Nieprawidłowe hasło");
         }
-        else setSurveyFragment();
+        else setSurveyListFragment();
         db.close();
         hideSoftKeyboard(this);
     }
@@ -220,7 +242,7 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(titles[position]);
     }
 
-    public void setSurveyFragment(){
+    public void setSurveyListFragment(){
         FragmentManager fragmentManager = getSupportFragmentManager();
         cleanBackStack(fragmentManager);
         fragmentManager.beginTransaction().replace(R.id.content_frame,new SurveyListFragment(),"visible_fragment")
