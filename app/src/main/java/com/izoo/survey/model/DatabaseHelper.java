@@ -7,9 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+<<<<<<< HEAD
 import com.izoo.survey.MainActivity;
 
 import java.sql.Date;
+=======
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +44,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_Question_In_Section = "Questions_In_Section";
     private static final String TABLE_Question = "Question";
     private static final String TABLE_Answers_To_Question = "Answers_To_Question";
+<<<<<<< HEAD
     private static final String TABLE_Answers = "Answers";
     private static final String TABLE_Type_Question = "Type_Question";
+=======
+    private static final String TABLE_Answers = "Answer";
+    private static final String TABLE_Type_Answers = "Type_Answer";
+    private static final String TABLE_Answers_To_Open_Question = "Answers_To_Open_Question";
+    private static final String TABLE_Answers_In_Question = "Answers_In_Question";
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
     // Common column names
     private static final String KEY_Name = "Name";
@@ -73,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_Required = "Required";
     private static final String KEY_Tips = "Tips";
 
+<<<<<<< HEAD
     // Answers _To_Question Table - column names
     private static final String KEY_Text_Answers = "Text_Answer";
     private static final String KEY_Has_Text = "Has_text";
@@ -82,6 +93,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Answers Table - column names
     private static final String KEY_ID_Answers_to_Question = "ID_Answers_to_Question";
+=======
+    // Answers _To_Open_Question Table - column names
+    private static final String KEY_Text_Answers = "Text_Answer";
+
+    // Type_Answers Table - column names
+    private static final String KEY_ID_Type_Answers = "ID_Type_Answers";
+
+    // Answers Table - column names
+    private static final String KEY_ID_Answers = "ID_Answers";
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
     // History Table - column names
     private static final String KEY_ID_History = "ID_History";
@@ -91,12 +112,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Type_Users table create statement
     private static final String CREATE_TABLE_Type_Users = "CREATE TABLE "
             + TABLE_Type_Users + "(" + KEY_ID_Type_Users + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Name_Type_User
+<<<<<<< HEAD
             + " VARCHAR(30) NOT NULL)";
+=======
+            + " VARCHAR(15) NOT NULL)";
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
     // Users table create statement
     private static final String CREATE_TABLE_Users = "CREATE TABLE "
             + TABLE_Users + "(" + KEY_ID_User + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Login
+<<<<<<< HEAD
             + " VARCHAR(45) NOT NULL," + KEY_Password + " VARCHAR(45)," + KEY_ID_Type_Users
+=======
+            + " VARCHAR(45) NOT NULL," + KEY_Password + " VARCHAR(45) NOT NULL," + KEY_ID_Type_Users
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
             + " INTEGER, " +
             " FOREIGN KEY "+ "("+ KEY_ID_Type_Users+")"+ " REFERENCES "+
             TABLE_Type_Users + "(" + KEY_ID_Type_Users+")" +
@@ -105,22 +134,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Survey table create statement
     private static final String CREATE_TABLE_Survey = "CREATE TABLE "
             + TABLE_Survey + "(" + KEY_ID_Survey + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Name
+<<<<<<< HEAD
             + " VARCHAR(100) NOT NULL," + KEY_Date_Create + " DATETIME," + KEY_Date_Update + " DATETIME, " +
+=======
+            + " VARCHAR(45) NOT NULL," + KEY_Date_Create + " DATETIME NOT NULL," + KEY_Date_Update + " DATETIME NOT NULL, " +
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
             KEY_Anonymous + " BOOLEAN NOT NULL )";
 
     // Section table create statement
     private static final String CREATE_TABLE_Section = "CREATE TABLE "
             + TABLE_Section + "(" + KEY_ID_Section + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Name
+<<<<<<< HEAD
             + " VARCHAR(50) NOT NULL)";
 
     // Type_Answers table create statement
     private static final String CREATE_TABLE_Type_Question = "CREATE TABLE "
             + TABLE_Type_Question + "(" + KEY_ID_Type_Question + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Name
             + " VARCHAR(50) NOT NULL)";
+=======
+            + " VARCHAR(30) NOT NULL)";
+
+    // Type_Answers table create statement
+    private static final String CREATE_TABLE_Type_Answers = "CREATE TABLE "
+            + TABLE_Type_Answers + "(" + KEY_ID_Type_Answers + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Name
+            + " VARCHAR(20) NOT NULL)";
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
     // Question table create statement
     private static final String CREATE_TABLE_Question = "CREATE TABLE "
             + TABLE_Question + "(" + KEY_ID_Question + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_Text_Question
+<<<<<<< HEAD
             + " VARCHAR(250) NOT NULL, " + KEY_Required + " BOOLEAN NOT NULL, " + KEY_Tips
             + " VARCHAR(250), " + KEY_ID_Type_Question + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_Type_Question + ")" + " REFERENCES " + TABLE_Type_Question +
@@ -140,6 +183,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " VARCHAR(250), " + KEY_ID_History + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_History + ")" +
             " REFERENCES " + TABLE_History + "(" + KEY_ID_History + ")" + ")";
+=======
+            + " VARCHAR(45) NOT NULL, " + KEY_Required + " BOOLEAN NOT NULL, " + KEY_Tips
+            + " VARCHAR(45), " + KEY_ID_Type_Answers + " INTEGER, " +
+            " FOREIGN KEY " + "(" + KEY_ID_Type_Answers + ")" + " REFERENCES " + TABLE_Type_Answers +
+            "(" + KEY_ID_Type_Answers + ")" + ")";
+
+    // Answers_To_Question table create statement
+    private static final String CREATE_TABLE_Answers_To_Question = "CREATE TABLE "
+            + TABLE_Answers_To_Question + "(" + KEY_ID_Question + " INTEGER, "
+            + KEY_ID_Answers + " INTEGER, " + KEY_ID_History + " INTEGER, " +
+            " FOREIGN KEY " + "(" + KEY_ID_Question + ")" +
+            " REFERENCES " + TABLE_Question + "(" + KEY_ID_Question + ")" +
+            " FOREIGN KEY " + "(" + KEY_ID_Answers + ")" +
+            " REFERENCES " + TABLE_Answers + "(" + KEY_ID_Answers + ")" +
+            " FOREIGN KEY " + "(" + KEY_ID_History + ")" +
+            " REFERENCES " + TABLE_History + "(" + KEY_ID_History + ")," +
+            "PRIMARY KEY (" + KEY_ID_History +","+KEY_ID_Answers+","+KEY_ID_Question+")"+
+            ")";
+
+    // Answers table create statement
+    private static final String CREATE_TABLE_Answers = "CREATE TABLE "
+            + TABLE_Answers + "(" + KEY_ID_Answers + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Text_Answers
+            + " VARCHAR(45) NOT NULL)";
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
     // Survey_Users table create statement
     private static final String CREATE_TABLE_Survey_Users = "CREATE TABLE " +TABLE_Survey_Users +
@@ -150,9 +217,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Survey_Anonymous table create statement
     private static final String CREATE_TABLE_Survey_Anonymous = "CREATE TABLE " + TABLE_Survey_Anonymous+
+<<<<<<< HEAD
             "(" + KEY_ID_Survey + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
             " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ "),"+
             " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")" + ")";
+=======
+            "(" + KEY_ID_Survey + " INTEGER," + KEY_ID_User + " INTEGER," + KEY_Date_Of_The_Survey + " DATETIME, " +
+            " FOREIGN KEY " + "(" + KEY_ID_Survey+ ")" + " REFERENCES " + TABLE_Survey+ "(" + KEY_ID_Survey+ "),"+
+            " FOREIGN KEY " + "(" + KEY_ID_User+ ")" + " REFERENCES " + TABLE_Users+ "(" + KEY_ID_User+ ")," +
+            "PRIMARY KEY (" + KEY_ID_User + "," + KEY_ID_Survey + ")" + ")";
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
     // Section_In_Survey table create statement
     private static final String CREATE_TABLE_Section_In_Survey = "CREATE TABLE "+ TABLE_Section_In_Survey +
@@ -171,10 +245,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // History table create statement
     private static final String CREATE_TABLE_History = "CREATE TABLE " + TABLE_History +
             "(" + KEY_ID_History + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_Date_Hour +
+<<<<<<< HEAD
             " DATETIME DEFAULT CURRENT_TIMESTAMP," + KEY_ID_User + " INTEGER," + KEY_ID_Survey + " INTEGER," +
             " FOREIGN KEY " + "(" + KEY_ID_Survey + ")" + " REFERENCES " + TABLE_Survey + "(" + KEY_ID_Survey+ "),"+
             " FOREIGN KEY " + "(" + KEY_ID_User + ")" + " REFERENCES " + TABLE_Users + "(" + KEY_ID_User + ")" + ")";
 
+=======
+            " DATETIME," + KEY_ID_User + " INTEGER," + KEY_ID_Survey + " INTEGER," +
+            " FOREIGN KEY " + "(" + KEY_ID_Survey + ")" + " REFERENCES " + TABLE_Survey + "(" + KEY_ID_Survey+ "),"+
+            " FOREIGN KEY " + "(" + KEY_ID_User + ")" + " REFERENCES " + TABLE_Users + "(" + KEY_ID_User + ")" + ")";
+
+    // Answers _To_Open_Question table create statement
+    private static final String CREATE_TABLE_Answers_To_Open_Question = "CREATE TABLE " + TABLE_Answers_To_Open_Question +
+            "(" + KEY_ID_Question + " INTEGER, " + KEY_Text_Answers + " VARCHAR(45) NOT NULL," + KEY_ID_History + " INTEGER, " +
+            " FOREIGN KEY " + "(" + KEY_ID_Question + ")" + " REFERENCES " + TABLE_Question + "(" + KEY_ID_Question + ")," +
+            " FOREIGN KEY " + "(" + KEY_ID_History + ")" + " REFERENCES " + TABLE_History + "(" + KEY_ID_History + ")," +
+            "PRIMARY KEY (" + KEY_ID_Question +", " + KEY_ID_History +" ) )";
+
+    // Answers_In_Question table create statement
+    private static final String CREATE_TABLE_Answers_In_Question = "CREATE TABLE " + TABLE_Answers_In_Question +
+            "(" + KEY_ID_Question + " INTEGER," + KEY_ID_Answers + " INTEGER, " + KEY_Sequence +" INTEGER NOT NULL," +
+            " FOREIGN KEY " + "(" + KEY_ID_Answers+ ")" + " REFERENCES " + TABLE_Answers+ "(" + KEY_ID_Answers + "),"+
+            " FOREIGN KEY " + "(" + KEY_ID_Question+ ")" + " REFERENCES " + TABLE_Question+ "(" + KEY_ID_Question+ ")," +
+            "PRIMARY KEY (" + KEY_ID_Answers + "," + KEY_ID_Question + ")" + ")";
+
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -186,7 +281,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_Users);
         db.execSQL(CREATE_TABLE_Survey);
         db.execSQL(CREATE_TABLE_Section);
+<<<<<<< HEAD
         db.execSQL(CREATE_TABLE_Type_Question);
+=======
+        db.execSQL(CREATE_TABLE_Type_Answers);
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
         db.execSQL(CREATE_TABLE_Question);
         db.execSQL(CREATE_TABLE_Answers_To_Question);
         db.execSQL(CREATE_TABLE_Answers);
@@ -195,6 +294,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_Section_In_Survey);
         db.execSQL(CREATE_TABLE_Question_In_Section);
         db.execSQL(CREATE_TABLE_History);
+<<<<<<< HEAD
+=======
+        db.execSQL(CREATE_TABLE_Answers_To_Open_Question);
+        db.execSQL(CREATE_TABLE_Answers_In_Question);
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
         db.execSQL(cdb.addTypeUser);
         db.execSQL(cdb.addUser);
         db.execSQL(cdb.addSurvey);
@@ -205,6 +309,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(cdb.addQuestionInSection);
         db.execSQL(cdb.addSurveyInSection);
         db.execSQL(cdb.addSurveyUsers);
+<<<<<<< HEAD
+=======
+        db.execSQL(cdb.addAnswerInQuestion);
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
     }
 
     @Override
@@ -214,7 +322,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Users);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Survey);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Section);
+<<<<<<< HEAD
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Type_Question);
+=======
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Type_Answers);
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Question);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Answers_To_Question);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Answers);
@@ -223,16 +335,79 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Section_In_Survey);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Question_In_Section);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_History);
+<<<<<<< HEAD
+=======
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Answers_To_Open_Question);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_Answers_In_Question);
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 
         // create new tables
         onCreate(sqLiteDatabase);
     }
+<<<<<<< HEAD
 
+=======
+    // Adding new History
+    public void addHistory(History h) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_Date_Hour , h.getDate_Hour().toString()); //
+        values.put(KEY_ID_User, h.getId_User());
+        values.put(KEY_ID_Survey, h.getId_Survey());
+
+        // Inserting Row
+        db.insert(TABLE_History, null, values);
+        db.close(); // Closing database connection
+    }
+
+    // Adding new Answers
+    public void addAnswers(Answers answers) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_Text_Answers , answers.getText_Answers()); //
+
+        // Inserting Row
+        db.insert(TABLE_Answers, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public List<Survey> getAllToDosByTag(int id) {
+        List<Survey> survey = new ArrayList<>();
+
+        String selectQuery = "select * from "+
+                TABLE_Survey+ " where " + KEY_ID_Survey+"=="+id;
+
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+//        if (c.moveToFirst()) {
+//            do {
+//                Survey s = new Survey();
+//                s.setId(c.getInt((c.getColumnIndex(KEY_ID))));
+//                td.setNote((c.getString(c.getColumnIndex(KEY_TODO))));
+//                td.setCreatedAt(c.getString(c.getColumnIndex(KEY_CREATED_AT)));
+//
+//                // adding to todo list
+//                todos.add(td);
+//            } while (c.moveToNext());
+//        }
+
+        return survey;
+    }
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
     public Cursor getAllSection() {
         String[] columns = {KEY_ID_Section + " as _id",KEY_Name,KEY_Sequence};
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_Section,columns,null,null,null,null,null);
+<<<<<<< HEAD
         db.close();
+=======
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
         return cursor;
     }
 
@@ -245,17 +420,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,null,null);
         if (cursor.getCount() > 0){
             cursor.moveToFirst();
+<<<<<<< HEAD
             Users user = new Users(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3));
             cursor.close();
             return user;
         }
         cursor.close();
+=======
+            return new Users(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3));
+        }
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
         return null;
     }
     public static Cursor getUsers(SQLiteDatabase db){
         return db.query(TABLE_Users,new String[]{KEY_ID_User + " as _id",KEY_Login},null,null,null,null,null);
     }
 
+<<<<<<< HEAD
     public static List<SurveyList> getSurveyList(SQLiteDatabase db, int Id_User){
         Cursor cursor = db.query(TABLE_Survey_Users,
                 new String[]{KEY_ID_Survey},
@@ -443,4 +624,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return c;
     }
 
+=======
+>>>>>>> e1fa483af42ecf01e14e496f703a9fd36d484362
 }
