@@ -1,11 +1,16 @@
 package com.izoo.survey;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,45 +20,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
-import com.izoo.survey.model.Answers;
 import com.izoo.survey.model.DatabaseHelper;
-import com.izoo.survey.model.Results;
+import com.izoo.survey.model.Survey;
+import com.izoo.survey.model.Users;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        LoginFragment.LoginListener,
+        LogoutFragment.LogoutListener {
 
-    private DatabaseHelper databaseHelper;
+    private static Users loggedUser;
+    private int currentPosition = 0;
+    private String[] titles;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //database
-        databaseHelper = new DatabaseHelper(this);
-
-        try{
-//            Answers a=new Answers("Ala",1);
-//            databaseHelper.addAnswers(a);
-//            Results r=new Results("Ola",1,1);
-//            databaseHelper.addResults(r);
-            databaseHelper.getAllToDosByTag(1);
-        }finally {
-            databaseHelper.close();
-        }
-
-        //database end
-
+        titles = getResources().getStringArray(R.array.titles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,14 +51,65 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        this.navigationView = navigationView;
+        getSupportFragmentManager().addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener() {
+                    public void onBackStackChanged() {
+                        FragmentManager fragMan = getSupportFragmentManager();
+                        if (fragMan.getBackStackEntryCount() == 0) return;
+                        Fragment fragment = fragMan.findFragmentByTag("visible_fragment");
+                        if (fragment instanceof LoginFragment || fragment instanceof LogoutFragment) {
+                            currentPosition = 0;
+                        }
+                        if (fragment instanceof SurveyListFragment) {
+                            currentPosition = 1;
+                        }
+                        if (fragment instanceof ResultFragment) {
+                            currentPosition = 2;
+                        }
+                        if (fragment instanceof StatisticsFragment) {
+                            currentPosition = 3;
+                        }
+                        setActionBarTitle(currentPosition);
+                        navigationView.getMenu().getItem(currentPosition).setChecked(true);
+                    }
+                }
+        );
 
         if(savedInstanceState == null){
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+            if(loggedUser == null){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+            }
+            else{
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,new LogoutFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+            }
         }
+        else{
+            currentPosition = savedInstanceState.getInt("position");
+            if(loggedUser == null){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+            }
+            else{
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame,new LogoutFragment())
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                setActionBarTitle(currentPosition);
+            }
+        }
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        //if()
     }
 
     @Override
@@ -77,7 +118,26 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            FragmentManager fragMan = getSupportFragmentManager();
+            Fragment fragment = fragMan.findFragmentByTag("visible_fragment");
+            if (fragMan.getBackStackEntryCount() == 0) super.onBackPressed();
+            else {
+                if (fragment instanceof SurveyFragment){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setMessage("Jesteś pewien, że chcesz wyjść? Wszystkie zmiany zostaną utracone.");
+                    alertDialogBuilder.setPositiveButton("Tak",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    setSurveyListFragment();
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton("Nie", null);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+                else super.onBackPressed();
+            }
         }
     }
 
@@ -109,25 +169,85 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = new Fragment();
-        if (id == R.id.nav_login) {
-            fragment = new LoginFragment();
-        } else if (id == R.id.nav_survey) {
-            fragment = new SurveyFragment();
-        } else if (id == R.id.nav_result) {
-            fragment = new ResultFragment();
-        } else if (id == R.id.nav_statistics) {
-            fragment = new StatisticsFragment();
-        } else if (id == R.id.nav_close) {
-            System.exit(0);
-        } else{
-            fragment = new LoginFragment();
-        }
+        if(loggedUser != null && id != R.id.nav_close){
+            if (id == R.id.nav_login) {
+                fragment = new LogoutFragment();
+            } else if (id == R.id.nav_survey) {
+                fragment = new SurveyListFragment();
+            } else if (id == R.id.nav_result) {
+                fragment = new ResultFragment();
+            } else {
+                fragment = new StatisticsFragment();
+            }
+        } else if(loggedUser == null && id != R.id.nav_close) fragment = new LoginFragment();
+        else System.exit(0);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame,fragment)
+        fragmentManager.beginTransaction().replace(R.id.content_frame,fragment,"visible_fragment")
                 .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         getSupportActionBar().setTitle(item.getTitle());
         return true;
+    }
+
+    @Override
+    public void loginButtonClicked(String login, String password){
+        SQLiteOpenHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        loggedUser = DatabaseHelper.checkUser(db,login,password);
+        if(loggedUser == null){
+            TextView error = (TextView) findViewById(R.id.error_message);
+            error.setText("Nieprawidłowe hasło");
+        }
+        else setSurveyListFragment();
+        db.close();
+        hideSoftKeyboard(this);
+    }
+
+    public static Users getLoggedUser(){
+        return loggedUser;
+    }
+
+    public void logout(){
+        loggedUser = null;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        cleanBackStack(fragmentManager);
+        fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+        setActionBarTitle(0);
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    private void cleanBackStack(FragmentManager fragmentManager){
+        int count = fragmentManager.getBackStackEntryCount();
+        for(int i = 0; i < count; ++i)
+            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", currentPosition);
+    }
+
+    private void setActionBarTitle(int position) {
+        getSupportActionBar().setTitle(titles[position]);
+    }
+
+    public void setSurveyListFragment(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        cleanBackStack(fragmentManager);
+        fragmentManager.beginTransaction().replace(R.id.content_frame,new SurveyListFragment(),"visible_fragment")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+        setActionBarTitle(1);
+        navigationView.getMenu().getItem(1).setChecked(true);
     }
 }

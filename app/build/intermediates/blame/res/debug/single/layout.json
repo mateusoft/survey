@@ -20,6 +20,10 @@
         "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/support_simple_spinner_dropdown_item.xml"
     },
     {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/fragment_logout.xml",
+        "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/layout/fragment_logout.xml"
+    },
+    {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/fragment_login.xml",
         "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/layout/fragment_login.xml"
     },
@@ -64,6 +68,10 @@
         "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/abc_list_menu_item_icon.xml"
     },
     {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/test.xml",
+        "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/layout/test.xml"
+    },
+    {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/notification_template_media_custom.xml",
         "source": "/home/mateusz/.android/build-cache/594daef3a1b3a7793e7937566aa47b0509270e83/output/res/layout/notification_template_media_custom.xml"
     },
@@ -82,6 +90,10 @@
     {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/design_navigation_item_header.xml",
         "source": "/home/mateusz/.android/build-cache/bf23be8ac32b7e7c4b54c8a23b8d8ee9bd78a8d3/output/res/layout/design_navigation_item_header.xml"
+    },
+    {
+        "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/survey_list.xml",
+        "source": "/home/mateusz/AndroidStudioProjects/survey/app/src/main/res/layout/survey_list.xml"
     },
     {
         "merged": "/home/mateusz/AndroidStudioProjects/survey/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
