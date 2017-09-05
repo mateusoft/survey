@@ -9,14 +9,11 @@ import java.util.Date;
 
 class History {
     private int id_History;
-    private Date date_Hour;
-    private int  id_User;
+    private String date_Hour;
+    private int id_User;
     private int id_Survey;
 
-    public History() {
-    }
-
-    public History(int ID_History, Date Date_Hour, int ID_User, int ID_Survey) {
+    public History(int ID_History, String Date_Hour, int ID_User, int ID_Survey) {
         id_History = ID_History;
         date_Hour = Date_Hour;
         id_User = ID_User;
@@ -31,11 +28,11 @@ class History {
         id_History = ID_History;
     }
 
-    public Date getDate_Hour() {
+    public String getDate_Hour() {
         return date_Hour;
     }
 
-    public void setDate_Hour(Date Date_Hour) {
+    public void setDate_Hour(String Date_Hour) {
         date_Hour = Date_Hour;
     }
 

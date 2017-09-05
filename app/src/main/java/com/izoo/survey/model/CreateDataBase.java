@@ -7,7 +7,7 @@ package com.izoo.survey.model;
 public class CreateDataBase {
 
     public String addTypeUser = "Insert into Type_User values (1,'User'), (2,'Employee'), (3,'Administrator')";
-    public String addUser = "Insert into User values (1,'User','abc',1),(2,'Employee','abc',2),(3,'Administrator','abc',3)";
+    public String addUser = "Insert into User values (1,'User','abc',1),(2,'Employee','abc',2),(3,'Administrator','abc',3), (4,'User1','abc',1), (5,'User2','abc',1)";
     public String addSurvey = "Insert into Survey values (1,'Ankieta Konsumencka','2017-08-10 01:25:00','2017-08-10 01:25:00',0), "+
             "(2,'Ankieta Anonimowa','2017-08-12 01:25:00','2017-08-12 01:25:00',1)";
     public String addSection = "Insert into Section values (1,'Informacje o respondencie'),(2,'Ankieta'), (3,'Zwierzeta'), (4,'Rosliny')";
@@ -35,7 +35,7 @@ public class CreateDataBase {
             "('Napisz esej',1,1,8), ('Gepard',1,0,9), ('Lala',3,1,9), ('Lew',2,0,9), "+
             " ('Tak',1,0,10), ('Nie',2,0,10), ('Cos innego',3,1,10), ('Dąb',1,0,11), ('Róża',2,0,11), ('Palma',3,0,11), ('Manuka',4,0,11), ('Kaktus',5,1,11), ('10 zdan',1,1,12)";
 
-    String addSurveyUsers = "Insert Into Survey_User values (1,1), (1,2), (2,2), (2,1), (3,1)";
+    String addSurveyUsers = "Insert Into Survey_User values (1,1), (1,2), (2,2), (2,1), (3,1), (4,1), (4,2)";
     String addSurveyInSection = "Insert Into Sections_In_Survey values (1,1,1), (2,1,2), (2,2,2), (3,2,3), (4,2,1)";
     String addQuestionInSection = "Insert Into Questions_In_Section values (1,1,1),(2,1,3),(3,1,2),(4,1,4),(5,1,5),(6,2,1), "+
             "(7,2,2), (7,3,2), (8,3,1), (9,3,3), (10,3,4), (11,4,1), (12,4,3), (10,4,2)";
