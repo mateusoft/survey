@@ -23,14 +23,11 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.izoo.survey.model.DatabaseHelper;
 import com.izoo.survey.model.Survey;
 import com.izoo.survey.model.Users;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        LoginFragment.LoginListener,
-        LogoutFragment.LogoutListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     private static Users loggedUser;
     private int currentPosition = 0;
@@ -60,17 +57,14 @@ public class MainActivity extends AppCompatActivity
                         FragmentManager fragMan = getSupportFragmentManager();
                         if (fragMan.getBackStackEntryCount() == 0) return;
                         Fragment fragment = fragMan.findFragmentByTag("visible_fragment");
-                        if (fragment instanceof LoginFragment || fragment instanceof LogoutFragment) {
+                        if (fragment instanceof LoginFragment) {
                             currentPosition = 0;
                         }
                         if (fragment instanceof SurveyListFragment) {
                             currentPosition = 1;
                         }
-                        if (fragment instanceof ResultFragment) {
-                            currentPosition = 2;
-                        }
                         if (fragment instanceof StatisticsFragment) {
-                            currentPosition = 3;
+                            currentPosition = 2;
                         }
                         setActionBarTitle(currentPosition);
                         navigationView.getMenu().getItem(currentPosition).setChecked(true);
@@ -79,37 +73,14 @@ public class MainActivity extends AppCompatActivity
         );
 
         if(savedInstanceState == null){
-            if(loggedUser == null){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-            }
-            else{
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new LogoutFragment())
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-            }
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
         }
         else{
             currentPosition = savedInstanceState.getInt("position");
-            if(loggedUser == null){
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new LoginFragment())
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-            }
-            else{
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame,new LogoutFragment())
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                setActionBarTitle(currentPosition);
-            }
+            if(loggedUser != null) setActionBarTitle(currentPosition);
         }
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //if()
     }
 
     @Override
@@ -124,7 +95,7 @@ public class MainActivity extends AppCompatActivity
             else {
                 if (fragment instanceof SurveyFragment){
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                    alertDialogBuilder.setMessage("Jesteś pewien, że chcesz wyjść? Wszystkie zmiany zostaną utracone.");
+                    alertDialogBuilder.setMessage("Jesteś pewien, że chcesz wyjść? Wszystkie odpowiedzi zostaną utracone.");
                     alertDialogBuilder.setPositiveButton("Tak",
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -156,9 +127,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -171,11 +139,9 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = new Fragment();
         if(loggedUser != null && id != R.id.nav_close){
             if (id == R.id.nav_login) {
-                fragment = new LogoutFragment();
+                fragment = new LoginFragment();
             } else if (id == R.id.nav_survey) {
                 fragment = new SurveyListFragment();
-            } else if (id == R.id.nav_result) {
-                fragment = new ResultFragment();
             } else {
                 fragment = new StatisticsFragment();
             }
@@ -191,25 +157,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void loginButtonClicked(String login, String password){
-        SQLiteOpenHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        loggedUser = DatabaseHelper.checkUser(db,login,password);
-        if(loggedUser == null){
-            TextView error = (TextView) findViewById(R.id.error_message);
-            error.setText("Nieprawidłowe hasło");
-        }
-        else setSurveyListFragment();
-        db.close();
-        hideSoftKeyboard(this);
-    }
-
-    public static Users getLoggedUser(){
-        return loggedUser;
-    }
-
-    public void logout(){
+    public void logoutUser(){
         loggedUser = null;
         FragmentManager fragmentManager = getSupportFragmentManager();
         cleanBackStack(fragmentManager);
@@ -217,6 +165,16 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
         setActionBarTitle(0);
         navigationView.getMenu().getItem(0).setChecked(true);
+    }
+
+    public void loginUser(Users user){
+        loggedUser = user;
+        setSurveyListFragment();
+        hideSoftKeyboard(this);
+    }
+
+    public static Users getLoggedUser(){
+        return loggedUser;
     }
 
     public static void hideSoftKeyboard(Activity activity) {
@@ -249,5 +207,13 @@ public class MainActivity extends AppCompatActivity
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
         setActionBarTitle(1);
         navigationView.getMenu().getItem(1).setChecked(true);
+    }
+
+    public void setSurveyFragment(int ID_Survey){
+        SurveyFragment fragment = new SurveyFragment();
+        fragment.setID_Survey(ID_Survey);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "visible_fragment")
+                .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
     }
 }
