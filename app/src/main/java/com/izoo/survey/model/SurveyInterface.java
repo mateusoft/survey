@@ -21,7 +21,7 @@ public interface SurveyInterface {
     void setErrorToast();
     void setProgressBar(int currentQuestionNumber, int allQuestionsNumber);
     void setEndViewButtons(int ID_User, boolean assignButton);
-    void setSummaryViewButtons();
+    void setSummaryViewButtons(boolean isStatistics);
     RadioGroup getRadioGroup();
     EditText getEditText(int id);
     List<CheckBox> getCheckBoxes();

@@ -1,5 +1,6 @@
 package com.izoo.survey.model;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -17,33 +18,31 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<SurveyList> surveyLists;
     private Users user;
+    private Activity activity;
 
-    public ExpandableListAdapter(List<SurveyList> surveyLists, Users user) {
+    public ExpandableListAdapter(List<SurveyList> surveyLists, Users user,Activity activity) {
         this.surveyLists = surveyLists;
         this.user = user;
+        this.activity = activity;
     }
 
     @Override
     public int getGroupCount() {
-        // Get header size
         return this.surveyLists.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        // return children count
         return surveyLists.get(groupPosition).getHistories().size();
     }
 
     @Override
     public SurveyList getGroup(int groupPosition) {
-        // Get header position
         return surveyLists.get(groupPosition);
     }
 
     @Override
     public History getChild(int groupPosition, int childPosition) {
-        // This will return the child
         return surveyLists.get(groupPosition).getHistories().get(childPosition);
     }
 
@@ -65,14 +64,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        // Inflating header layout and setting text
         if (convertView == null) {
             LayoutInflater inflater =
                     LayoutInflater.from(parent.getContext());
 
             convertView = inflater.inflate(R.layout.list_group, parent, false);
         }
-        //set content for the parent views
+
         TextView header_text = (TextView) convertView.findViewById(R.id.header);
         if(getGroup(groupPosition).getSurvey().isAnonymous() == 0){
             header_text.setText(getGroup(groupPosition).getSurvey().getName());
@@ -82,8 +80,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             header_text.setText(text);
         }
         header_text.setTextColor(Color.BLACK);
-        // If group is expanded then change the text into bold and change the
-        // icon
+
         if (isExpanded) {
             header_text.setTypeface(null, Typeface.BOLD);
         } else {
@@ -98,16 +95,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        // Getting child text
-        final String childText = (childPosition + 1) + " " + getChild(groupPosition, childPosition).getDate_Hour();
-        // Inflating child layout and setting textview
+        final String childText = (childPosition + 1) + ".   " + getChild(groupPosition, childPosition).getDate_Hour();
+
         if (convertView == null) {
             LayoutInflater inflater =
                     LayoutInflater.from(parent.getContext());
 
             convertView = inflater.inflate(R.layout.list_item, parent, false);
         }
-        //set content in the child views
         TextView child_text = (TextView) convertView.findViewById(R.id.child);
 
         child_text.setText(childText);

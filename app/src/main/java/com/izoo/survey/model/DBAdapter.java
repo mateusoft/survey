@@ -395,17 +395,19 @@ public class DBAdapter {
         return question;
     }
 
-    private Answers_To_Question getGivenAsnwers(int ID_History, Answers_To_Question answers_to_question)throws Exception{
+    public Answers_To_Question getGivenAnswer(int ID_History, Answers_To_Question answers_to_question)throws Exception{
         cursor = Get(DBName.TABLE_Answers,null,
                 DBName.KEY_ID_Answers_to_Question + " = ? AND " + DBName.KEY_ID_History + " = ?",
                 new String[]{Integer.toString(answers_to_question.getId_Answers_To_Question()),Integer.toString(ID_History)},
                 null,null,null);
         if(cursor.moveToFirst()){
             Answers_To_Question answer = new Answers_To_Question(answers_to_question);
-            if(cursor.getString(1) != null){
-                answer.setText(cursor.getString(1));
-            } else{
-                answer.setText("");
+            if(answer.getHas_Text() == 1){
+                if(cursor.getString(1) != null){
+                    answer.setText(cursor.getString(1));
+                } else{
+                    answer.setText("");
+                }
             }
             return answer;
         }else{
