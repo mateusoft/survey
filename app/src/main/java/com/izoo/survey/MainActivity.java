@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.izoo.survey.model.History;
 import com.izoo.survey.model.Survey;
 import com.izoo.survey.model.Users;
 
@@ -94,18 +95,20 @@ public class MainActivity extends AppCompatActivity
             if (fragMan.getBackStackEntryCount() == 0) super.onBackPressed();
             else {
                 if (fragment instanceof SurveyFragment){
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                    alertDialogBuilder.setMessage("Jesteś pewien, że chcesz wyjść? Wszystkie odpowiedzi zostaną utracone.");
-                    alertDialogBuilder.setPositiveButton("Tak",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    setSurveyListFragment();
-                                }
-                            });
-                    alertDialogBuilder.setNegativeButton("Nie", null);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    if(SurveyFragment.getHistory() == null){
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                        alertDialogBuilder.setMessage("Jesteś pewien, że chcesz wyjść? Wszystkie odpowiedzi zostaną utracone.");
+                        alertDialogBuilder.setPositiveButton("Tak",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        setSurveyListFragment();
+                                    }
+                                });
+                        alertDialogBuilder.setNegativeButton("Nie", null);
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }else super.onBackPressed();
                 }
                 else super.onBackPressed();
             }
@@ -209,10 +212,18 @@ public class MainActivity extends AppCompatActivity
         navigationView.getMenu().getItem(1).setChecked(true);
     }
 
-    public void setSurveyFragment(int ID_Survey){
+    public void setSurveyFragment(int ID_Survey, History history){
         SurveyFragment fragment = new SurveyFragment();
-        fragment.setID_Survey(ID_Survey);
+        SurveyFragment.set(ID_Survey,history);
         FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "visible_fragment")
+                .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+    }
+
+    public void setStatisticsFragment(){
+        StatisticsFragment fragment = new StatisticsFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(SurveyFragment.getHistory() != null) fragmentManager.popBackStack();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "visible_fragment")
                 .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
     }

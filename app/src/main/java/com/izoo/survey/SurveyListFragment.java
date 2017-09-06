@@ -63,7 +63,7 @@ public class SurveyListFragment extends ListFragment implements SurveyListInterf
 
     @Override
     public void setSurveyFragment(int ID_Survey){
-        ((MainActivity) getActivity()).setSurveyFragment(ID_Survey);
+        ((MainActivity) getActivity()).setSurveyFragment(ID_Survey,null);
     }
 
     @Override

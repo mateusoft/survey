@@ -35,7 +35,9 @@ import android.widget.Toast;
 
 import com.izoo.survey.model.Answers_To_Question;
 import com.izoo.survey.model.DBAdapter;
+import com.izoo.survey.model.History;
 import com.izoo.survey.model.Question;
+import com.izoo.survey.model.Section;
 import com.izoo.survey.model.Survey;
 import com.izoo.survey.model.SurveyInterface;
 import com.izoo.survey.model.Users;
@@ -45,8 +47,8 @@ import java.util.Date;
 import java.util.List;
 
 public class SurveyFragment extends Fragment implements SurveyInterface {
-    private int ID_Survey;
-
+    private static int ID_Survey;
+    private static History history;
     private View view;
     private LinearLayout linearLayout;
     private Presenter presenter;
@@ -56,7 +58,13 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
     private CompoundButton compoundButton;
 
     public SurveyFragment() {}
-    public void setID_Survey(int ID_Survey){this.ID_Survey = ID_Survey;}
+    public static void set(int id_Survey, History _history){
+        ID_Survey = id_Survey;
+        history = _history;
+    }
+    public static History getHistory(){
+        return history;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,9 +75,9 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         try{
             if(savedInstanceState != null){
-                presenter = new Presenter(this,ID_Survey,getActivity(),true);
+                presenter = new Presenter(this,ID_Survey,getActivity(),true,history);
             }else{
-                presenter = new Presenter(this,ID_Survey,getActivity(),false);
+                presenter = new Presenter(this,ID_Survey,getActivity(),false,history);
             }
         }catch (Exception e){
             Toast.makeText(getActivity(),"Błąd bazy danych",Toast.LENGTH_SHORT).show();
@@ -287,34 +295,49 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
         showSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.setSummaryView();
+                presenter.setSummaryView(false);
             }
         });
         linearLayout.addView(showSummary);
     }
 
     @Override
-    public void setSummaryViewButtons(){
-        Button back = addButton("Wstecz");
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.setEndView();
-            }
-        });
-        linearLayout.addView(back);
-        LayoutParams layoutParams1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        layoutParams1.setMargins(0, 5, 0, 15);
-        Button edit = addButton("Edytuj od pierwszego");
-        edit.setLayoutParams(layoutParams1);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.setFirstQuestion();
-                presenter.setSurveyView(false);
-            }
-        });
-        linearLayout.addView(edit);
+    public void setSummaryViewButtons(boolean isStatistics){
+        if(!isStatistics){
+            Button back = addButton("Wstecz");
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    presenter.setEndView();
+                }
+            });
+            linearLayout.addView(back);
+            LayoutParams layoutParams1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            layoutParams1.setMargins(0, 5, 0, 15);
+            Button edit = addButton("Edytuj od pierwszego");
+            edit.setLayoutParams(layoutParams1);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    presenter.setFirstQuestion();
+                    presenter.setSurveyView(false);
+                }
+            });
+            linearLayout.addView(edit);
+        }else{
+            Button back = addButton("Wstecz");
+            LayoutParams layoutParams1 = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            layoutParams1.setMargins(0, 5, 0, 15);
+            back.setLayoutParams(layoutParams1);
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity)getActivity()).setStatisticsFragment();
+                }
+            });
+            linearLayout.addView(back);
+        }
+
     }
     @Override
     public void setAssignViewButtons(Cursor cursor){
@@ -483,32 +506,51 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
         static String currentView;
         static Date start;
 
-        Presenter(SurveyInterface surveyFragment, int ID_Survey, Activity activity, boolean isRestored)throws Exception{
+        Presenter(SurveyInterface surveyFragment, int ID_Survey, Activity activity, boolean isRestored, History history)throws Exception{
             this.surveyFragment = surveyFragment;
             dbAdapter = new DBAdapter(activity);
             user = MainActivity.getLoggedUser();
-            if(!isRestored){
+            if(history != null){
                 dbAdapter.openReadableDatabase();
                 survey = dbAdapter.getSurvey(ID_Survey);
-                currentView = "SURVEY";
-                start = new Date();
-            }
-            switch (currentView){
-                case "SURVEY":
-                    this.surveyFragment.setSurveyName(survey.getName());
-                    currentQuestion = survey.getCurrentQuestion();
-                    setSurveyView(false);
-                    break;
-                case "END":
-                    setEndView();
-                    break;
-                case "SUMMARY":
-                    this.surveyFragment.setSurveyName(survey.getName());
-                    setSummaryView();
-                    break;
-                case "ASSIGN":
-                    setAssignView();
-                    break;
+                List<Section> sections = survey.getSections();
+                for(Section section: sections){
+                    List<Question> questions = section.getQuestions();
+                    for(Question question: questions){
+                        List<Answers_To_Question> availableAnswers = question.getAvailableAnswers();
+                        List<Answers_To_Question> givenAnswers = new ArrayList<>();
+                        for(Answers_To_Question answer: availableAnswers){
+                            Answers_To_Question _answer = dbAdapter.getGivenAnswer(history.getId_History(),answer);
+                            if(_answer != null) givenAnswers.add(_answer);
+                        }
+                        question.setGivenAnswers(givenAnswers);
+                    }
+                }
+                setSummaryView(true);
+            }else{
+                if(!isRestored){
+                    dbAdapter.openReadableDatabase();
+                    survey = dbAdapter.getSurvey(ID_Survey);
+                    currentView = "SURVEY";
+                    start = new Date();
+                }
+                switch (currentView){
+                    case "SURVEY":
+                        this.surveyFragment.setSurveyName(survey.getName());
+                        currentQuestion = survey.getCurrentQuestion();
+                        setSurveyView(false);
+                        break;
+                    case "END":
+                        setEndView();
+                        break;
+                    case "SUMMARY":
+                        this.surveyFragment.setSurveyName(survey.getName());
+                        setSummaryView(false);
+                        break;
+                    case "ASSIGN":
+                        setAssignView();
+                        break;
+                }
             }
         }
         void setSurveyView(boolean isSummary){
@@ -574,7 +616,7 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
             if(seconds > 0) text.append(seconds + " sek.");
             surveyFragment.addTextView(text,20,false,true);
         }
-        void setSummaryView(){
+        void setSummaryView(boolean isStatistics){
             currentView = "SUMMARY";
             surveyFragment.cleanLayout(true);
             setFirstQuestion();
@@ -584,7 +626,7 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
                 setSurveyView(true);
             }
             getNextQuestion(true);
-            surveyFragment.setSummaryViewButtons();
+            surveyFragment.setSummaryViewButtons(isStatistics);
         }
         void setAssignView()throws Exception{
             currentView = "ASSIGN";
@@ -733,6 +775,7 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
             currentQuestion = survey.getCurrentQuestion();
         }
         void onDestroy(){
+            surveyFragment.cleanLayout(false);
             dbAdapter.Close();
         }
     }

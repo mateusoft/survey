@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.izoo.survey.model.DBAdapter;
 import com.izoo.survey.model.ExpandableListAdapter;
+import com.izoo.survey.model.History;
 import com.izoo.survey.model.StatisticsInterface;
 import com.izoo.survey.model.SurveyList;
 import com.izoo.survey.model.Users;
@@ -35,34 +36,26 @@ public class StatisticsFragment extends Fragment implements StatisticsInterface{
         }catch (Exception e){
             Toast.makeText(getActivity(),"Błąd bazy danych",Toast.LENGTH_SHORT).show();
         }
-        //setOnChildClickListener();
-
         return view;
     }
 
-    /*private void setOnChildClickListener(){
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+    void setSurveyFragment(int ID_Survey, History history){
+        ((MainActivity) getActivity()).setSurveyFragment(ID_Survey,history);
+    }
 
+    @Override
+    public void setAdapter(final ExpandableListAdapter expandableListAdapter){
+        expandableListView.setAdapter( expandableListAdapter );
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-
-                Toast.makeText(
-                        getApplicationContext(),
-                        header.get(groupPosition)
-                                + " : "
-                                + hashMap.get(
-                                header.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
-                return false;
+                History history = expandableListAdapter.getChild(groupPosition,childPosition);
+                setSurveyFragment(history.getId_Survey(),history);
+                return true;
             }
         });
-    }*/
-
-    @Override
-    public void setAdapter(ExpandableListAdapter expandableListAdapter){
-        expandableListView.setAdapter( expandableListAdapter );
     }
 
     class StatisticsTask extends AsyncTask<Object, Void, Boolean> {
@@ -96,7 +89,7 @@ public class StatisticsFragment extends Fragment implements StatisticsInterface{
                         }
                     }
                 }
-                ExpandableListAdapter adapter = new ExpandableListAdapter(surveyLists,user);
+                ExpandableListAdapter adapter = new ExpandableListAdapter(surveyLists,user,getActivity());
                 setAdapter(adapter);
             }
         }
