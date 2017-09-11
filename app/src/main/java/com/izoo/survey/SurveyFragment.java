@@ -332,7 +332,7 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
             back.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((MainActivity)getActivity()).setStatisticsFragment();
+                    ((MainActivity)getActivity()).setStatisticsFragment(true);
                 }
             });
             linearLayout.addView(back);

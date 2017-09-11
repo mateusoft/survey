@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.view.ContextMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -220,10 +221,18 @@ public class MainActivity extends AppCompatActivity
                 .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
     }
 
-    public void setStatisticsFragment(){
+    public void setStatisticsFragment(boolean pop){
         StatisticsFragment fragment = new StatisticsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if(SurveyFragment.getHistory() != null) fragmentManager.popBackStack();
+        if(pop) fragmentManager.popBackStack();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "visible_fragment")
+                .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+    }
+
+    public void setSummaryFragment(int ID_Survey){
+        SummaryFragment fragment = new SummaryFragment();
+        SummaryFragment.setID_Survey(ID_Survey);
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, "visible_fragment")
                 .addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
     }

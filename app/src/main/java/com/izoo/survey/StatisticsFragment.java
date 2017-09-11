@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -44,7 +46,7 @@ public class StatisticsFragment extends Fragment implements StatisticsInterface{
     }
 
     @Override
-    public void setAdapter(final ExpandableListAdapter expandableListAdapter){
+    public void setAdapter(final ExpandableListAdapter expandableListAdapter, Users user){
         expandableListView.setAdapter( expandableListAdapter );
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -56,6 +58,7 @@ public class StatisticsFragment extends Fragment implements StatisticsInterface{
                 return true;
             }
         });
+        if(!user.getType_Users().equals("User")) registerForContextMenu(expandableListView);
     }
 
     class StatisticsTask extends AsyncTask<Object, Void, Boolean> {
@@ -89,10 +92,30 @@ public class StatisticsFragment extends Fragment implements StatisticsInterface{
                         }
                     }
                 }
-                ExpandableListAdapter adapter = new ExpandableListAdapter(surveyLists,user,getActivity());
-                setAdapter(adapter);
+                ExpandableListAdapter adapter = new ExpandableListAdapter(surveyLists,user);
+                setAdapter(adapter, user);
             }
         }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)     {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Wyświetlić podsumowanie ankiety?");
+        menu.add(0, v.getId(), 0, "Tak");
+        menu.add(0, v.getId(), 0, "Nie");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getTitle().equals("Tak")){
+            ExpandableListView.ExpandableListContextMenuInfo info = (ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo();
+            int groupPosition = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+            int ID_Survey = ((ExpandableListAdapter)expandableListView.getExpandableListAdapter()).getGroup(groupPosition).getSurvey().getID_Survey();
+            ((MainActivity) getActivity()).setSummaryFragment(ID_Survey);
+        }
+        else return false;
+        return true;
     }
 
     @Override
