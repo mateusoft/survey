@@ -314,6 +314,19 @@ public class DBAdapter {
                 null,null,null);
     }
 
+    public String getHistoryIDListBySurveyID(int ID_Survey)throws Exception{
+        StringBuilder historyIDList = new StringBuilder("");
+        cursor = getHistoryBySurveyID(ID_Survey);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            historyIDList.append(Integer.toString(cursor.getInt(0)));
+            while(cursor.moveToNext()){
+                historyIDList.append("," + Integer.toString(cursor.getInt(0)));
+            }
+        }
+        return historyIDList.toString();
+    }
+
     public Survey getSurvey(int id_Survey)throws Exception{
         cursor = Get(DBName.TABLE_Survey, null,
                 DBName.KEY_ID_Survey + " = ?",
@@ -468,5 +481,80 @@ public class DBAdapter {
         } finally {
             EndTransaction();
         }
+    }
+
+    public void countGivenAnswers(String historyIDList, Answers_To_Question answer)throws Exception{
+        cursor = Get(DBName.TABLE_Answers, null,
+                DBName.KEY_ID_Answers_to_Question + " = ?  AND " + DBName.KEY_ID_History + " IN ("+historyIDList+")",
+                new String[]{Integer.toString(answer.getId_Answers_To_Question())},
+                null,null,null);
+        answer.setSummaryAmountAnswers(cursor.getCount());
+        if(answer.getHas_Text() == 1 && cursor.getCount() > 0){
+            List <String> list = new ArrayList<>();
+            while(cursor.moveToNext()){
+                String text = cursor.getString(1);
+                if(text != null && !text.equals("")){
+                    list.add(text);
+                }
+            }
+            answer.setSummaryTextAnswers(list);
+        }
+    }
+
+    public void insertSurvey(Survey survey)throws Exception{
+        ContentValues surveyValues = new ContentValues();
+        surveyValues.put(DBName.KEY_Name,survey.getName());
+        surveyValues.put(DBName.KEY_Date_Create,survey.getDate_Create());
+        surveyValues.put(DBName.KEY_Date_Update,survey.getDate_Update());
+        surveyValues.put(DBName.KEY_Anonymous,survey.isAnonymous());
+        long ID_Survey = Insert(DBName.TABLE_Survey,surveyValues);
+        List<Section> sections = survey.getSections();
+        for(int i = 0; i < sections.size(); i++){
+            insertSection(sections.get(i),i,ID_Survey);
+        }
+    }
+    private void insertSection(Section section, int i, long ID_Survey)throws Exception{
+        ContentValues sectionValues = new ContentValues();
+        sectionValues.put(DBName.KEY_Name,section.getName());
+        long ID_Section = Insert(DBName.TABLE_Section,sectionValues);
+        ContentValues section_In_SurveyValues = new ContentValues();
+        section_In_SurveyValues.put(DBName.KEY_ID_Section,ID_Section);
+        section_In_SurveyValues.put(DBName.KEY_ID_Survey,ID_Survey);
+        section_In_SurveyValues.put(DBName.KEY_Sequence,i+1);
+        Insert(DBName.TABLE_Section_In_Survey,section_In_SurveyValues);
+        List<Question> questions = section.getQuestions();
+        for(int j = 0; j < questions.size(); j++){
+            insertQuestion(questions.get(j),j,ID_Section);
+        }
+    }
+    private void insertQuestion(Question question,int j, long ID_Section)throws Exception{
+        ContentValues questionValues = new ContentValues();
+        questionValues.put(DBName.KEY_Text_Question,question.getText_Question());
+        questionValues.put(DBName.KEY_Required,question.isRequired());
+        questionValues.put(DBName.KEY_Tips,question.getTips());
+        cursor = Get(DBName.TABLE_Type_Question,
+                new String[]{DBName.KEY_ID_Type_Question},
+                DBName.KEY_Name + " = ?",
+                new String[]{question.getType_Question()},null,null,null);
+        cursor.moveToFirst();
+        questionValues.put(DBName.KEY_ID_Type_Question,cursor.getInt(0));
+        long ID_Question = Insert(DBName.TABLE_Question,questionValues);
+        ContentValues question_In_SectionValues = new ContentValues();
+        question_In_SectionValues.put(DBName.KEY_ID_Question,ID_Question);
+        question_In_SectionValues.put(DBName.KEY_ID_Section,ID_Section);
+        question_In_SectionValues.put(DBName.KEY_Sequence,j+1);
+        Insert(DBName.TABLE_Question_In_Section,question_In_SectionValues);
+        List<Answers_To_Question> answers = question.getAvailableAnswers();
+        for(int k = 0; k < answers.size(); k++){
+            insertAnswers_To_Question(answers.get(k),k,ID_Question);
+        }
+    }
+    private void insertAnswers_To_Question(Answers_To_Question answers_to_question, int k, long ID_Question)throws Exception{
+        ContentValues answers_To_QuestionValues = new ContentValues();
+        answers_To_QuestionValues.put(DBName.KEY_Text_Answers,answers_to_question.getText_Answers());
+        answers_To_QuestionValues.put(DBName.KEY_Sequence,k+1);
+        answers_To_QuestionValues.put(DBName.KEY_Has_Text,answers_to_question.getHas_Text());
+        answers_To_QuestionValues.put(DBName.KEY_ID_Question,ID_Question);
+        Insert(DBName.TABLE_Answers_To_Question,answers_To_QuestionValues);
     }
 }

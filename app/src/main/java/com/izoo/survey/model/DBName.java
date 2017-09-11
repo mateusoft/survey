@@ -121,7 +121,9 @@ public class DBName {
             + TABLE_Answers + "(" + KEY_ID_Answers_to_Question + " INTEGER," + KEY_Text_Answers
             + " VARCHAR(250), " + KEY_ID_History + " INTEGER, " +
             " FOREIGN KEY " + "(" + KEY_ID_History + ")" +
-            " REFERENCES " + TABLE_History + "(" + KEY_ID_History + ")" + ")";
+            " REFERENCES " + TABLE_History + "(" + KEY_ID_History + "), " +
+            " FOREIGN KEY " + "(" + KEY_ID_Answers_to_Question + ")" +
+            " REFERENCES " + TABLE_Answers_To_Question + "(" + KEY_ID_Answers_to_Question + ")" +")";
 
     // Survey_Users table create statement
     public static final String CREATE_TABLE_Survey_Users = "CREATE TABLE " +TABLE_Survey_Users +

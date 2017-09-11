@@ -1,6 +1,5 @@
 package com.izoo.survey.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

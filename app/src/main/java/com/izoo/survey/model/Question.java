@@ -84,4 +84,12 @@ public class Question {
         }
         return null;
     }
+
+    public int countGivenAsnwers(){
+        int count = 0;
+        for(Answers_To_Question answer: availableAnswers){
+            count += answer.getSummaryAmountAnswers();
+        }
+        return count;
+    }
 }

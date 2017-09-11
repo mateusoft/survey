@@ -1,13 +1,6 @@
 package com.izoo.survey.model;
 
-
-import java.util.Date;
-
-/**
- * Created by mateusz on 08.08.17.
- */
-
-class History {
+public class History {
     private int id_History;
     private String date_Hour;
     private int id_User;

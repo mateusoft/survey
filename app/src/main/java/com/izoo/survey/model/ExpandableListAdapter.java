@@ -1,6 +1,5 @@
 package com.izoo.survey.model;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -18,12 +17,10 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<SurveyList> surveyLists;
     private Users user;
-    private Activity activity;
 
-    public ExpandableListAdapter(List<SurveyList> surveyLists, Users user,Activity activity) {
+    public ExpandableListAdapter(List<SurveyList> surveyLists, Users user) {
         this.surveyLists = surveyLists;
         this.user = user;
-        this.activity = activity;
     }
 
     @Override

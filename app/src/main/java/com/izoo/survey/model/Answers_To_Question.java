@@ -1,5 +1,7 @@
 package com.izoo.survey.model;
 
+import java.util.List;
+
 /**
  * Created by mateusz on 08.08.17.
  */
@@ -10,6 +12,8 @@ public class Answers_To_Question {
     private int has_Text;
     private int ID_Question;
     private String text;
+    private List<String> summaryTextAnswers;
+    private int summaryAmountAnswers;
 
     public Answers_To_Question(int id_Answers_To_Question, String text_Answers, int has_Text, int ID_Question) {
         this.id_Answers_To_Question = id_Answers_To_Question;
@@ -17,6 +21,8 @@ public class Answers_To_Question {
         this.has_Text = has_Text;
         this.ID_Question = ID_Question;
         text = null;
+        summaryAmountAnswers = 0;
+        summaryTextAnswers = null;
     }
 
     public Answers_To_Question(Answers_To_Question answers_to_question){
@@ -25,6 +31,8 @@ public class Answers_To_Question {
         has_Text = answers_to_question.getHas_Text();
         ID_Question = answers_to_question.getID_Question();
         text = null;
+        summaryAmountAnswers = 0;
+        summaryTextAnswers = null;
     }
 
     public int getId_Answers_To_Question() {
@@ -66,4 +74,12 @@ public class Answers_To_Question {
     public void setText(String text) {
         this.text = text;
     }
+
+    public List<String> getSummaryTextAnswers() {return summaryTextAnswers;}
+
+    public void setSummaryTextAnswers(List<String> summaryTextAnswers) {this.summaryTextAnswers = summaryTextAnswers;}
+
+    public int getSummaryAmountAnswers() {return summaryAmountAnswers;}
+
+    public void setSummaryAmountAnswers(int summaryAmountAnswers) {this.summaryAmountAnswers = summaryAmountAnswers;}
 }
