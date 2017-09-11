@@ -502,15 +502,24 @@ public class DBAdapter {
     }
 
     public void insertSurvey(Survey survey)throws Exception{
-        ContentValues surveyValues = new ContentValues();
-        surveyValues.put(DBName.KEY_Name,survey.getName());
-        surveyValues.put(DBName.KEY_Date_Create,survey.getDate_Create());
-        surveyValues.put(DBName.KEY_Date_Update,survey.getDate_Update());
-        surveyValues.put(DBName.KEY_Anonymous,survey.isAnonymous());
-        long ID_Survey = Insert(DBName.TABLE_Survey,surveyValues);
-        List<Section> sections = survey.getSections();
-        for(int i = 0; i < sections.size(); i++){
-            insertSection(sections.get(i),i,ID_Survey);
+        BeginTransaction();
+        try {
+            ContentValues surveyValues = new ContentValues();
+            surveyValues.put(DBName.KEY_Name,survey.getName());
+            surveyValues.put(DBName.KEY_Date_Create,survey.getDate_Create());
+            surveyValues.put(DBName.KEY_Date_Update,survey.getDate_Update());
+            surveyValues.put(DBName.KEY_Anonymous,survey.isAnonymous());
+            long ID_Survey = Insert(DBName.TABLE_Survey,surveyValues);
+            List<Section> sections = survey.getSections();
+            for(int i = 0; i < sections.size(); i++){
+                insertSection(sections.get(i),i,ID_Survey);
+            }
+            cursor.close();
+            SetTransactionSuccessful();
+        } catch(Exception e) {
+            throw e;
+        } finally {
+            EndTransaction();
         }
     }
     private void insertSection(Section section, int i, long ID_Survey)throws Exception{
