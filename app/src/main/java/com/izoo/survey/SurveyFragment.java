@@ -200,11 +200,10 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
     }
     @Override
     public void setSurveyViewButtons(boolean isBackButtonExcluded){
-        addBackButtonToPreviousQuestion(layoutParams,false,isBackButtonExcluded);
+        addBackButtonToPreviousQuestion(false,isBackButtonExcluded);
         Button next = new Button(getActivity());
         next.setText("Dalej");
         next.setTextSize(20);
-        next.setLayoutParams(layoutParams);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -275,7 +274,7 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
         tv.setTextSize(25);
         tv.setGravity(Gravity.CENTER);
         linearLayout.addView(tv);
-        addBackButtonToPreviousQuestion(null,true,false);
+        addBackButtonToPreviousQuestion(true,false);
         addSaveButton(ID_User);
         if(assignButton){
             Button assignTo = addButton("Przypisz do:");
@@ -413,13 +412,12 @@ public class SurveyFragment extends Fragment implements SurveyInterface {
         presenter.onSaveInstanceState();
     }
 
-    private void addBackButtonToPreviousQuestion(LayoutParams layoutParams,final boolean isEnd, boolean isBackButtonExcluded){
+    private void addBackButtonToPreviousQuestion(final boolean isEnd, boolean isBackButtonExcluded){
         Button back = new Button(getActivity());
         back.setText("Wstecz");
         back.setTextSize(20);
         if(isBackButtonExcluded) back.setEnabled(false);
         else back.setEnabled(true);
-        if(layoutParams != null) back.setLayoutParams(layoutParams);
         if(isEnd) back.setGravity(Gravity.CENTER);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
